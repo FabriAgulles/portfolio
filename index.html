@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fabricio Agulles - IT Project Manager</title>
+    <meta name="description" content="Portfolio de Fabricio Agulles, IT Project Manager especializado en metodologías ágiles, IA y transformación digital. Conectemos para impulsar tus proyectos.">
+    <meta name="keywords" content="IT Project Manager, Scrum Master, Business Manager, Agile, IA, Transformación Digital, Proyectos, Fabricio Agulles, Barcelona">
+    <meta name="author" content="Fabricio Agulles">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa; /* Light gray background */
+            color: #343a40; /* Dark gray text */
+        }
+        .hero-bg {
+             /* Consider a subtle gradient or very light pattern */
+            background-color: #ffffff; /* White for hero */
+        }
+        .section-bg {
+            background-color: #ffffff; /* White for content sections */
+        }
+        .accent-color {
+            color: #007bff; /* Primary blue */
+        }
+        .accent-bg {
+            background-color: #007bff;
+        }
+        .hover-accent-bg:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+        .card {
+            background-color: #fff;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 16px rgba(0, 0, 0, 0.2);
+        }
+        /* Animations */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Scrollbar for project carousel */
+        .project-carousel::-webkit-scrollbar {
+            height: 8px;
+        }
+        .project-carousel::-webkit-scrollbar-thumb {
+            background-color: #007bff;
+            border-radius: 10px;
+        }
+        .project-carousel::-webkit-scrollbar-track {
+            background-color: #e0e0e0;
+        }
+        /* Modal styles */
+        .modal {
+            transition: opacity 0.25s ease;
+        }
+        .modal-content {
+            transition: transform 0.25s ease;
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+    display: none; /* Para Chrome, Safari y Opera */
+        }
+        .scrollbar-hide {
+    -ms-overflow-style: none;  /* IE y Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#007bff',
+                        primarydark: '#0056b3',
+                        secondary: '#6c757d',
+                        lightgray: '#f8f9fa',
+                        darkgray: '#343a40',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="antialiased">
+
+    <!-- Navegación Principal -->
+    <nav class="bg-white/80 backdrop-blur-md shadow-md fixed w-full z-50 top-0">
+        <div class="container mx-auto px-6 py-3">
+            <div class="flex items-center justify-between">
+                <a href="#" class="text-2xl font-semibold text-primary">Fabricio Agulles</a>
+                <div class="hidden md:flex space-x-4">
+                    <a href="#hero" class="text-gray-700 hover:text-primary px-3 py-2 rounded-md text-sm font-medium">Inicio</a>
+                    <a href="#sobre-mi" class="text-gray-700 hover:text-primary px-3 py-2 rounded-md text-sm font-medium">Sobre Mí</a>
+                    <a href="#proyectos" class="text-gray-700 hover:text-primary px-3 py-2 rounded-md text-sm font-medium">Proyectos</a>
+                    <a href="#experiencia" class="text-gray-700 hover:text-primary px-3 py-2 rounded-md text-sm font-medium">Experiencia</a>
+                    <a href="#testimonios" class="text-gray-700 hover:text-primary px-3 py-2 rounded-md text-sm font-medium">Testimonios</a>
+                    <a href="#contacto" class="text-gray-700 hover:text-primary px-3 py-2 rounded-md text-sm font-medium">Contacto</a>
+                </div>
+                <div class="md:hidden">
+                    <button id="menu-button" class="text-gray-700 focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Menú móvil -->
+        <div id="mobile-menu" class="md:hidden hidden">
+            <a href="#hero" class="block text-gray-700 hover:text-primary px-3 py-2 rounded-md text-base font-medium">Inicio</a>
+            <a href="#sobre-mi" class="block text-gray-700 hover:text-primary px-3 py-2 rounded-md text-base font-medium">Sobre Mí</a>
+            <a href="#proyectos" class="block text-gray-700 hover:text-primary px-3 py-2 rounded-md text-base font-medium">Proyectos</a>
+            <a href="#experiencia" class="block text-gray-700 hover:text-primary px-3 py-2 rounded-md text-base font-medium">Experiencia</a>
+            <a href="#testimonios" class="block text-gray-700 hover:text-primary px-3 py-2 rounded-md text-base font-medium">Testimonios</a>
+            <a href="#contacto" class="block text-gray-700 hover:text-primary px-3 py-2 rounded-md text-base font-medium">Contacto</a>
+        </div>
+    </nav>
+
+    <!-- Sección Hero -->
+    <section id="hero" class="hero-bg min-h-screen flex items-center pt-16 md:pt-0">
+        <div class="container mx-auto px-6 py-16">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 text-center md:text-left mb-10 md:mb-0">
+                    <h1 class="text-4xl md:text-6xl font-bold text-darkgray mb-4">Fabricio Agulles</h1>
+                    <h2 class="text-2xl md:text-3xl font-semibold text-primary mb-6">IT Project Manager | Scrum Master | Business Manager</h2>
+                    <p class="text-lg text-secondary mb-8 leading-relaxed">
+                        Transformando ideas complejas en resultados exitosos. Lidero proyectos IT, con foco en IA y transformación digital, para impulsar el crecimiento y la eficiencia en organizaciones globales.
+                    </p>
+                    <a href="#proyectos" class="bg-primary text-white font-semibold py-3 px-8 rounded-lg shadow-lg hover-accent-bg transition duration-300">
+                        Ver Mis Proyectos
+                    </a>
+                </div>
+                <div class="md:w-1/2 flex justify-center">
+                    <!-- Reemplaza con la URL de tu foto de perfil -->
+                    <img src="https://imgur.com/KRgV8Ox.png" alt="Fabricio Agulles" class="rounded-full shadow-2xl w-64 h-64 md:w-80 md:h-80 object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Sobre Mí -->
+    <section id="sobre-mi" class="py-16 section-bg fade-in-section">
+                    <!-- Título y Párrafo Principal Mejorados -->
+            <div class="bg-white shadow-xl rounded-xl p-8 md:p-12 max-w-4xl mx-auto mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-center text-primary mb-6">Impulsando el Éxito de tus Proyectos</h2>
+                <p class="text-lg text-secondary text-center max-w-3xl mx-auto leading-relaxed">
+                    Soy Project Manager en IT con +5 años de experiencia liderando proyectos end-to-end, especializado en metodologías ágiles (Scrum, Kanban). He colaborado con equipos multidisciplinarios y clientes de diversos sectores como tecnología, banca, logística, gobierno, finanzas, consultoría, retail y salud, asegurando entregas de alto impacto en tiempo y forma. 
+                </p>
+            </div>
+            <!-- Fin Título y Párrafo Principal Mejorados -->
+            <h3 class="text-2xl font-semibold text-center text-darkgray mb-8">Aspectos Clave</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12 text-center">
+                <div class="p-6 bg-gray-100 rounded-lg shadow">
+                    <i class="fas fa-briefcase text-3xl text-primary mb-3"></i>
+                    <p class="font-semibold">+5 Años de Experiencia en IT</p>
+                </div>
+                <div class="p-6 bg-gray-100 rounded-lg shadow">
+                    <i class="fas fa-users-cog text-3xl text-primary mb-3"></i>
+                    <p class="font-semibold">Especialista en Metodologías Ágiles (Scrum, Kanban)</p>
+                </div>
+                <div class="p-6 bg-gray-100 rounded-lg shadow">
+                    <i class="fas fa-brain text-3xl text-primary mb-3"></i>
+                    <p class="font-semibold">Foco en Proyectos de IA y Transformación Digital</p>
+                </div>
+                <div class="p-6 bg-gray-100 rounded-lg shadow">
+                    <i class="fas fa-language text-3xl text-primary mb-3"></i>
+                    <p class="font-semibold">Multilingüe (ES, EN, DE, PT)</p>
+                </div>
+            </div>
+            <p class="text-lg italic text-center text-secondary max-w-2xl mx-auto">
+                "Mi enfoque combina gestión estratégica, liderazgo de equipos y diseño de soluciones. He gestionado productos de IA, plataformas web y apps. Priorizo la comunicación efectiva con stakeholders y la mejora continua de los equipos y procesos."
+            </p>
+        </div>
+    </section>
+
+    <!-- Sección Proyectos Destacados -->
+    <section id="proyectos" class="py-16 lightgray fade-in-section">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center text-darkgray mb-4">Algunos Proyectos Destacados</h2>
+            <p class="text-lg text-secondary text-center max-w-2xl mx-auto mb-12">
+                Un vistazo a cómo he ayudado a empresas a alcanzar sus objetivos a través de la digitalización y la gestión de sus proyectos.
+            </p>
+            <div class="relative">
+                 <div id="project-carousel" class="project-carousel flex overflow-x-auto space-x-8 pb-8 snap-x snap-mandatory">
+                    <!-- Proyecto 1: Leads Caddy -->
+                    <div class="card flex-shrink-0 w-80 snap-center">
+                        <img src="https://imgur.com/kpj163d.png" alt="Leads Caddy AI Lead Management" class="rounded-t-lg h-48 w-full object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold mb-2 text-darkgray">Leads Caddy - Asistente IA</h3>
+                            <p class="text-sm text-secondary mb-1">Project Lead en Xoor | 2024</p>
+                            <p class="text-sm text-gray-600 mb-4">Plataforma de gestión de leads impulsada por IA.</p>
+                            <button class="open-modal-button text-primary hover:underline" data-modal-target="modal-leadscaddy">Ver Detalles</button>
+                        </div>
+                    </div>
+                    <!-- Proyecto 2: CDE -->
+                    <div class="card flex-shrink-0 w-80 snap-center">
+                         <img src="https://imgur.com/fabhg1v.png" alt="CDE Business Consultant Platform" class="rounded-t-lg h-48 w-full object-contain object-center bg-white">
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold mb-2 text-darkgray">CDE - Consultoría de Negocios</h3>
+                            <p class="text-sm text-secondary mb-1">Project Manager | 2024</p>
+                            <p class="text-sm text-gray-600 mb-4">Plataforma integral para servicios de consultoría empresarial.</p>
+                            <button class="open-modal-button text-primary hover:underline" data-modal-target="modal-cde">Ver Detalles</button>
+                        </div>
+                    </div>
+                    <!-- Proyecto 3: MCR Logistics -->
+                    <div class="card flex-shrink-0 w-80 snap-center">
+                        <img src="https://imgur.com/g7Wmx0x.png" alt="MCR Plataforma de Logística" class="rounded-t-lg h-48 w-full object-contain object-center bg-white">
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold mb-2 text-darkgray">MCR - Plataforma Logística</h3>
+                            <p class="text-sm text-secondary mb-1">Project Manager | 2023-2024</p>
+                            <p class="text-sm text-gray-600 mb-4">Solución TMS para optimización de operaciones logísticas.</p>
+                            <button class="open-modal-button text-primary hover:underline" data-modal-target="modal-mcr">Ver Detalles</button>
+                        </div>
+                    </div>
+                     <!-- Proyecto 4: ICL Consulting -->
+                    <div class="card flex-shrink-0 w-80 snap-center">
+                        <img src="https://imgur.com/OWmzwc6.png" alt="ICL Consulting Platform" class="rounded-t-lg h-48 w-full object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold mb-2 text-darkgray">ICL - Plataforma Consultoría</h3>
+                             <p class="text-sm text-secondary mb-1">Project Manager | 2023</p>
+                            <p class="text-sm text-gray-600 mb-4">Informes y consultoría laboral digitalizada.</p>
+                            <button class="open-modal-button text-primary hover:underline" data-modal-target="modal-icl">Ver Detalles</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modales (ocultos por defecto) -->
+        <!-- Modal Leads Caddy -->
+        <div id="modal-leadscaddy" class="modal fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center p-4 z-[60] hidden opacity-0">
+            <div class="modal-content bg-white p-8 rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto transform scale-95">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-2xl font-bold text-darkgray">Leads Caddy - Asistente IA</h3>
+                    <button class="close-modal-button text-gray-500 hover:text-gray-700">×</button>
+                </div>
+                <alt="Leads Caddy" class="w-full h-64 object-cover rounded-md mb-4">
+                <p class="mb-2"><strong class="text-darkgray">Cliente/Empresa:</strong> Xoor</p>
+                <p class="mb-2"><strong class="text-darkgray">Sector:</strong> Software Factory</p>
+                <p class="mb-4"><strong class="text-darkgray">El Desafío:</strong> Desarrollar una plataforma + chatbot para la gestión y organización automática de leads utilizando inteligencia artificial, mejorando la eficiencia del networking empresarial.</p>
+                <p class="mb-1"><strong class="text-darkgray">Mi Rol y Contribución:</strong></p>
+                <ul class="list-disc list-inside text-secondary mb-4 pl-4">
+                    <li>Liderazgo End-to-End, desde la concepción hasta el despliegue.</li>
+                    <li>Análisis funcional y definición de los requisitos del producto.</li>
+                    <li>Coordinación de equipo (Devs, UX/UI, QA, Copywriter).</li>
+                    <li>Gestión de backlog, sprints y ceremonias de Scrum.</li>
+                    <li>Comunicación con stakeholders para alineación y feedback.</li>
+                </ul>
+                <p class="mb-1"><strong class="text-darkgray">Metodologías y Tecnologías:</strong></p>
+                <p class="text-secondary mb-4">Scrum, Jira, Telegram chatbot, Figma, Integración Vertex IA, FE y BE.</p>
+                <p class="mb-1"><strong class="text-darkgray">Resultados:</strong></p>
+                <p class="text-secondary">Lanzamiento exitoso del MVP en 2 meses, resultando en una herramienta innovadora para la captación y gestión de leads. Mejora en la eficiencia de prospección reportada por los primeros usuarios. Apta en diversos idiomas</p>
+                <button class="close-modal-button mt-6 bg-primary text-white py-2 px-4 rounded hover-accent-bg transition duration-300">Cerrar</button>
+            </div>
+        </div>
+
+        <!-- Modal CDE -->
+        <div id="modal-cde" class="modal fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center p-4 z-[60] hidden opacity-0">
+            <div class="modal-content bg-white p-8 rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto transform scale-95">
+                <h3 class="text-2xl font-bold text-darkgray mb-4">CDE - Business Consultant Platform</h3>
+                 <alt="CDE Platform" class="w-full h-64 object-cover rounded-md mb-4">
+                 <p class="mb-2"><strong class="text-darkgray">Cliente/Empresa:</strong> Consultores de Empresas - CDE</p>
+                <p class="mb-2"><strong class="text-darkgray">Sector:</strong> Consultoría Empresarial</p>
+                <p class="mb-4"><strong class="text-darkgray">El Desafío:</strong> Crear una plataforma digital para centralizar los servicios de consultoría, mejorar la interacción con clientes y optimizar la gestión de proyectos de consultoría.</p>
+                <p class="mb-1"><strong class="text-darkgray">Mi Rol y Contribución:</strong></p>
+                <ul class="list-disc list-inside text-secondary mb-4 pl-4">
+                    <li>Toma de requerimientos, definición del alcance del proyecto y planificación de entregables.</li>
+                    <li>Liderazgo del equipo de (Devs, UX UI, QA, AF)).</li>
+                    <li>Gestión de riesgos y cronograma del proyecto.</li>
+                    <li>Implementación de Scrum para el desarrollo.</li>
+                </ul>
+                <p class="mb-1"><strong class="text-darkgray">Metodologías y Tecnologías:</strong></p>
+                <p class="text-secondary mb-4">Scrum, Kanban, Jira, Figma, Herramientas de Colaboración.</p>
+                <p class="mb-1"><strong class="text-darkgray">Resultados:</strong></p>
+                <p class="text-secondary">Plataforma lanzada con éxito en producción, permitiendo a CDE ofrecer un servicio más eficiente y moderno a sus clientes.</p>
+                <button class="close-modal-button mt-6 bg-primary text-white py-2 px-4 rounded hover-accent-bg transition duration-300">Cerrar</button>
+            </div>
+        </div>
+
+        <!-- Modal MCR -->
+        <div id="modal-mcr" class="modal fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center p-4 z-[60] hidden opacity-0">
+            <div class="modal-content bg-white p-8 rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto transform scale-95">
+                <h3 class="text-2xl font-bold text-darkgray mb-4">MCR - Plataforma de Logística</h3>
+                 <alt="MCR Platform" class="w-full h-64 object-cover rounded-md mb-4">
+                <p class="mb-2"><strong class="text-darkgray">Cliente/Empresa:</strong> MCR Soluciones Logísticas</p>
+                <p class="mb-2"><strong class="text-darkgray">Sector:</strong> Logística y Transporte</p>
+                <p class="mb-4"><strong class="text-darkgray">El Desafío:</strong> Implementar un sistema TMS (Transportation Management System) para optimizar la gestión de flotas, rutas y entregas, reduciendo costos y mejorando la visibilidad de las operaciones tanto en plataforma como en APP.</p>
+                <p class="mb-1"><strong class="text-darkgray">Mi Rol y Contribución:</strong></p>
+                <ul class="list-disc list-inside text-secondary mb-4 pl-4">
+                    <li>Project Management completo del desarrollo e implementación del TMS.</li>
+                    <li>Recopilación de requisitos de los stakeholders.</li>
+                    <li>Gestión de las integraciónes con sistemas existentes.</li>
+                    <li>Liderazgo del equipo (Devs, QA, UX UI, AF, PO).</li>
+                </ul>
+                <p class="mb-1"><strong class="text-darkgray">Metodologías y Tecnologías:</strong></p>
+                <p class="text-secondary mb-4">Scrum, Teams, Azure DevOps, Integraciones API.</p>
+                <p class="mb-1"><strong class="text-darkgray">Resultados:</strong></p>
+                <p class="text-secondary">Implementación exitosa del TMS en plataforma web y en app IOS/Android, logrando una mejora en la eficiencia operativa y una reducción de costos logísticos para MCR.</p>
+                <button class="close-modal-button mt-6 bg-primary text-white py-2 px-4 rounded hover-accent-bg transition duration-300">Cerrar</button>
+            </div>
+        </div>
+
+        <!-- Modal ICL -->
+        <div id="modal-icl" class="modal fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center p-4 z-[60] hidden opacity-0">
+            <div class="modal-content bg-white p-8 rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto transform scale-95">
+                 <h3 class="text-2xl font-bold text-darkgray mb-4">ICL - Informes y Consultoría Laboral</h3>
+                 <alt="ICL Platform" class="w-full h-64 object-cover rounded-md mb-4">
+                <p class="mb-2"><strong class="text-darkgray">Cliente/Empresa:</strong> Consultora ICL</p>
+                <p class="mb-2"><strong class="text-darkgray">Sector:</strong> Consultoría Laboral</p>
+                <p class="mb-4"><strong class="text-darkgray">El Desafío:</strong> Digitalizar y automatizar la generación de informes y la prestación de servicios de consultoría laboral para agilizar los procesos y mejorarar la accesibilidad para los clientes.</p>
+                <p class="mb-1"><strong class="text-darkgray">Mi Rol y Contribución:</strong></p>
+                <ul class="list-disc list-inside text-secondary mb-4 pl-4">
+                    <li>Gestión del ciclo de vida completo del proyecto de la plataforma digital.</li>
+                    <li>Colaboración con expertos legales para asegurar la conformidad de los informes.</li>
+                    <li>Diseño de la experiencia de usuario para clientes y administradores.</li>
+                    <li>Coordinación del equipo (Devs, QA, UXUI, AF).</li>
+                </ul>
+                <p class="mb-1"><strong class="text-darkgray">Metodologías y Tecnologías:</strong></p>
+                <p class="text-secondary mb-4">Scrum, Figma, Teams, Azure DevOps.</p>
+                <p class="mb-1"><strong class="text-darkgray">Resultados:</strong></p>
+                <p class="text-secondary">Lanzamiento de una plataforma automatizada e intuitiva que redujo significativamente el tiempo de generación de informes y mejoró la satisfacción del cliente.</p>
+                <button class="close-modal-button mt-6 bg-primary text-white py-2 px-4 rounded hover-accent-bg transition duration-300">Cerrar</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Habilidades y Competencias -->
+    <section id="habilidades" class="py-16 section-bg fade-in-section">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center text-darkgray mb-12">Mis Herramientas y Habilidades</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Gestión de Proyectos y Metodologías -->
+                <div class="p-6 bg-gray-50 rounded-lg shadow">
+                    <h3 class="text-xl font-semibold text-primary mb-4">Gestión y Metodologías</h3>
+                    <ul class="space-y-2 text-secondary">
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Agile (Scrum, Kanban)</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Ciclo de Vida del Proyecto</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Planificación Estratégica</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Monitoreo y Control</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Análisis de Datos</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Gestión de Riesgos</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Documentación</li>
+                    </ul>
+                </div>
+                <!-- Habilidades Blandas -->
+                <div class="p-6 bg-gray-50 rounded-lg shadow">
+                    <h3 class="text-xl font-semibold text-primary mb-4">Habilidades Blandas</h3>
+                    <ul class="space-y-2 text-secondary">
+                        <li class="flex items-center"><i class="fas fa-users text-green-500 mr-2"></i> Liderazgo de Equipos</li>
+                        <li class="flex items-center"><i class="fas fa-comments text-green-500 mr-2"></i> Comunicación Efectiva</li>
+                        <li class="flex items-center"><i class="fas fa-hands-helping text-green-500 mr-2"></i> Gestión de Stakeholders</li>
+                        <li class="flex items-center"><i class="fas fa-lightbulb text-green-500 mr-2"></i> Resolución de Problemas</li>
+                        <li class="flex items-center"><i class="fas fa-chess-king text-green-500 mr-2"></i> Pensamiento Estratégico</li>
+                        <li class="flex items-center"><i class="fas fa-handshake text-green-500 mr-2"></i> Negociación</li>
+                        <li class="flex items-center"><i class="fas fa-cogs text-green-500 mr-2"></i> Adaptabilidad</li>
+                    </ul>
+                </div>
+                <!-- Herramientas y Tecnologías -->
+                <div class="p-6 bg-gray-50 rounded-lg shadow">
+                    <h3 class="text-xl font-semibold text-primary mb-4">Herramientas y Tecnologías</h3>
+                    <ul class="space-y-2 text-secondary">
+                        <li class="flex items-center"><i class="fab fa-jira text-blue-500 mr-2"></i> Jira, Trello, Azure DevOps, Notion</li>
+                        <li class="flex items-center"><i class="fab fa-microsoft text-blue-500 mr-2"></i> Microsoft Teams, SharePoint</li>
+                        <li class="flex items-center"><i class="fas fa-robot text-blue-500 mr-2"></i> AI LLMs (GPT, Vertex, Gemini , otras)</li>
+                        <li class="flex items-center"><i class="fab fa-confluence text-blue-500 mr-2"></i> Confluence, Notion</li>
+                        <li class="flex items-center"><i class="fab fa-figma text-purple-500 mr-2"></i> Figma, FigJam, Miro, Adobe XD, Excalidraw</li>
+                         <li class="flex items-center"><i class="fab fa-slack text-pink-500 mr-2"></i> Slack</li>
+                        <li class="flex items-center"><i class="fab fa-google text-red-500 mr-2"></i> Google Workspace</li>
+                    </ul>
+                </div>
+            </div>
+             <div class="mt-12 p-6 bg-gray-50 rounded-lg shadow">
+                <h3 class="text-xl font-semibold text-primary mb-4 text-center">Idiomas</h3>
+                <div class="flex flex-wrap justify-center items-center gap-4 sm:gap-8">
+                    <div class="flex items-center text-secondary">
+                        <img src="https://flagcdn.com/w40/es.png" srcset="https://flagcdn.com/w80/es.png 2x" width="30" alt="España" class="mr-2"> Español (Nativo)
+                    </div>
+                    <div class="flex items-center text-secondary">
+                         <img src="https://flagcdn.com/w40/gb.png" srcset="https://flagcdn.com/w80/gb.png 2x" width="30" alt="Reino Unido" class="mr-2"> Inglés (Fluido - B2/C1)
+                    </div>
+                    <div class="flex items-center text-secondary">
+                        <img src="https://flagcdn.com/w40/de.png" srcset="https://flagcdn.com/w80/de.png 2x" width="30" alt="Alemania" class="mr-2"> Alemán (Conversacional - A2)
+                    </div>
+                    <div class="flex items-center text-secondary">
+                        <img src="https://flagcdn.com/w40/pt.png" srcset="https://flagcdn.com/w80/pt.png 2x" width="30" alt="Portugal" class="mr-2"> Portugués (Conversacional - A2)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Experiencia Profesional -->
+    <section id="experiencia" class="py-16 lightgray fade-in-section">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center text-darkgray mb-12">Mi Trayectoria Profesional como PM</h2>
+            <div class="relative">
+                <!-- Línea de tiempo vertical -->
+                <div class="border-l-2 border-primary absolute h-full top-0 left-1/2 transform -translate-x-1/2 md:left-1/2 md:transform-none"></div>
+
+                <!-- Experiencia Xoor -->
+                <div class="mb-8 flex md:justify-between items-center w-full right-timeline">
+                    <div class="md:order-1 md:w-5/12"></div>
+                    <div class="z-20 flex items-center order-1 bg-primary shadow-xl w-8 h-8 rounded-full">
+                        <i class="fas fa-briefcase text-white mx-auto"></i>
+                    </div>
+                    <div class="order-1 bg-white rounded-lg shadow-xl w-full md:w-5/12 px-6 py-4 card">
+                        <h3 class="font-semibold text-lg text-primary">Project Manager & Functional Analyst</h3>
+                        <p class="text-sm text-secondary mb-1">Xoor | Software Factory | Las Vegas, USA</p>
+                        <p class="text-xs text-gray-500 mb-3">2024</p>
+                        <ul class="list-disc list-inside text-sm text-gray-600 space-y-1">
+                            <li>Gestión de equipo multidisciplinario en proyecto de IA.</li>
+                            <li>Toma de requerimiento, documentación y definición del backlog.</li>
+                            <li>Lider de Scrum y del ciclo de vida del proyecto.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Experiencia Lubee -->
+                <div class="mb-8 flex md:justify-between md:flex-row-reverse items-center w-full left-timeline">
+                     <div class="md:order-1 md:w-5/12"></div>
+                    <div class="z-20 flex items-center order-1 bg-primary shadow-xl w-8 h-8 rounded-full">
+                        <i class="fas fa-briefcase text-white mx-auto"></i>
+                    </div>
+                    <div class="order-1 bg-white rounded-lg shadow-xl w-full md:w-5/12 px-6 py-4 card">
+                        <h3 class="font-semibold text-lg text-primary">Project Manager - Scrum Master</h3>
+                        <p class="text-sm text-secondary mb-1">Lubee | Software Factory | Buenos Aires, Argentina</p>
+                        <p class="text-xs text-gray-500 mb-3">2023 - 2024</p>
+                         <ul class="list-disc list-inside text-sm text-gray-600 space-y-1">
+                            <li>Gestión End-to-End de proyectos IT, liderazgo de 4 equipos.</li>
+                            <li>Conducción de ceremonias Scrum.</li>
+                            <li>Documentación, gestión de backlog y desarrollo de user stories.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Experiencia Julasoft -->
+                <div class="mb-8 flex md:justify-between items-center w-full right-timeline">
+                    <div class="md:order-1 md:w-5/12"></div>
+                    <div class="z-20 flex items-center order-1 bg-primary shadow-xl w-8 h-8 rounded-full">
+                        <i class="fas fa-briefcase text-white mx-auto"></i>
+                    </div>
+                    <div class="order-1 bg-white rounded-lg shadow-xl w-full md:w-5/12 px-6 py-4 card">
+                        <h3 class="font-semibold text-lg text-primary">Project Manager</h3>
+                        <p class="text-sm text-secondary mb-1">Julasoft | Software Factory | Buenos Aires, Argentina</p>
+                        <p class="text-xs text-gray-500 mb-3">2022 - 2023</p>
+                        <ul class="list-disc list-inside text-sm text-gray-600 space-y-1">
+                            <li>Gestión, planificación, ejecución y monitoreo de proyectos IT.</li>
+                            <li>Gestión de riesgos, documentación, cronogramas y objetivos.</li>
+                            <li>Encargado de Scrum y líder de equipo.</li>
+                        </ul>
+                    </div>
+                </div>
+                 <!-- Experiencia Golpe Digital -->
+                <div class="mb-8 flex md:justify-between md:flex-row-reverse items-center w-full left-timeline">
+                     <div class="md:order-1 md:w-5/12"></div>
+                    <div class="z-20 flex items-center order-1 bg-primary shadow-xl w-8 h-8 rounded-full">
+                        <i class="fas fa-briefcase text-white mx-auto"></i>
+                    </div>
+                    <div class="order-1 bg-white rounded-lg shadow-xl w-full md:w-5/12 px-6 py-4 card">
+                        <h3 class="font-semibold text-lg text-primary">Project Manager</h3>
+                        <p class="text-sm text-secondary mb-1">Golpe Digital | Marketing Agency | Mendoza, Argentina</p>
+                        <p class="text-xs text-gray-500 mb-3">2021 - 2023</p>
+                         <ul class="list-disc list-inside text-sm text-gray-600 space-y-1">
+                            <li>Gestión de presupuestos y requisitos de stakeholders.</li>
+                            <li>Gestión del ciclo de vida de proyectos de páginas web y plataformas.</li>
+                            <li>Liderazgo y gestión de tareas del equipo.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Educación y Certificaciones -->
+    <section id="educacion" class="py-16 section-bg fade-in-section">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center text-darkgray mb-12">Formación Académica</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="card p-6">
+                    <h3 class="text-xl font-semibold text-primary mb-3">Educación Universitaria</h3>
+                    <div class="mb-4">
+                        <p class="font-medium text-darkgray">Administrador de Empresas (Graduado)</p>
+                        <p class="text-secondary text-sm">Universidad Nacional de Cuyo (2017-2020)</p>
+                    </div>
+                    <div>
+                        <p class="font-medium text-darkgray">Ingeniería en Informática (Estudios)</p>
+                        <p class="text-secondary text-sm">Universidad de Mendoza (2014-2015)</p>
+                    </div>
+                </div>
+                <div class="card p-6">
+                    <h3 class="text-xl font-semibold text-primary mb-3">Certificaciones y Cursos</h3>
+                    <ul class="space-y-2 text-secondary text-sm">
+                        <li><i class="fas fa-award text-yellow-500 mr-2"></i> Google Professional Project Management Certification</li>
+                        <li><i class="fas fa-graduation-cap text-gray-500 mr-2"></i> Agile Methodologies (Coder House)</li>
+                        <li><i class="fas fa-graduation-cap text-gray-500 mr-2"></i> Artificial Intelligence (Platzi)</li>
+                        <li><i class="fas fa-graduation-cap text-gray-500 mr-2"></i> Project Management (Udemy)</li>
+                        <li><i class="fas fa-graduation-cap text-gray-500 mr-2"></i> Leadership and Team Management (Julasoft)</li>
+                        <li><i class="fas fa-graduation-cap text-gray-500 mr-2"></i> Requirement Engineering (Udemy)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Testimonios -->
+    <section id="testimonios" class="py-16 lightgray fade-in-section">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center text-darkgray mb-12">Testimonios de Colegas</h2>
+            
+            <div class="relative group">
+                <!-- Contenedor del Carrusel -->
+                <div id="testimonial-carousel-individual" 
+                     class="flex overflow-x-auto snap-x snap-mandatory scroll-smooth scrollbar-hide space-x-4 sm:space-x-6 md:space-x-0">
+                    
+                    <!-- Testimonio 1 -->
+                    <div class="testimonial-card-individual flex-shrink-0 w-[calc(100%-2rem)] sm:w-[calc(100%-3rem)] md:w-full snap-center md:snap-align-none bg-white rounded-lg shadow-xl p-6 md:p-8 flex flex-col mx-2 sm:mx-3 md:mx-0">
+                        <i class="fas fa-quote-left text-4xl text-primary mb-6 self-center md:self-start"></i>
+                        <p class="text-secondary italic text-center md:text-left text-lg mb-6 flex-grow leading-relaxed">"Fabricio es un excelente profesional; sabe cómo planificar y gestionar un proyecto de punta a punta, siempre con mucha responsabilidad y entusiasmo. Es buen compañero y coordinador de equipos; trabaja siempre con seriedad, tranquilidad y perseverancia, ningún proyecto le da miedo de gestionar, acepta todos los desafíos sin pensarlo. Dentro de sus tantas fortalezas se encuentran, sin duda, su motivación por su profesión y sus ganas de superarse día a día. 
+Todo proyecto delegado en él, es un proyecto que será bien gestionado. Es un placer trabajar con él."</p>
+                        <div class="text-center md:text-left">
+                            <p class="font-semibold text-darkgray text-lg">Belén Riambau</p>
+                            <p class="text-sm text-gray-500">Project Manager</p>
+                        </div>
+                    </div>
+
+                    <!-- Testimonio 2 -->
+                    <div class="testimonial-card-individual flex-shrink-0 w-[calc(100%-2rem)] sm:w-[calc(100%-3rem)] md:w-full snap-center md:snap-align-none bg-white rounded-lg shadow-xl p-6 md:p-8 flex flex-col mx-2 sm:mx-3 md:mx-0">
+                        <i class="fas fa-quote-left text-4xl text-primary mb-6 self-center md:self-start"></i>
+                        <p class="text-secondary italic text-center md:text-left text-lg mb-6 flex-grow leading-relaxed">"Fabricio es un muy buen profesional y un gran compañero de trabajo. Es muy metodológico y organizado en sus tareas. Posee una buena y fluida comunicación con cada miembro del equipo. Tuve la oportunidad de trabajar en varios proyectos a la par y siempre ha sabido ejecutarlo con creces. Posee las palabras indicadas a la hora de negociar con los clientes y ha sabido alcanzar los objetivos en cada uno de los proyectos en los que participó."</p>
+                        <div class="text-center md:text-left">
+                            <p class="font-semibold text-darkgray text-lg">Sebastián Mergip</p>
+                            <p class="text-sm text-gray-500">Technical Business Analyst</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Testimonio 3 -->
+                    <div class="testimonial-card-individual flex-shrink-0 w-[calc(100%-2rem)] sm:w-[calc(100%-3rem)] md:w-full snap-center md:snap-align-none bg-white rounded-lg shadow-xl p-6 md:p-8 flex flex-col mx-2 sm:mx-3 md:mx-0">
+                        <i class="fas fa-quote-left text-4xl text-primary mb-6 self-center md:self-start"></i>
+                        <p class="text-secondary italic text-center md:text-left text-lg mb-6 flex-grow leading-relaxed">"I had the opportunity to lead Fabricio as part of our Project Management Team for a short period of time, but I can confidently say he is a reliable, skilled PM who is willing to learn constantly.
+
+The onboarding process was very smooth, and after a few weeks, Fabricio started working on a project from scratch, making sure to follow the company's best practices. In addition, we had weekly meetings in which we went over doubts and improvements that he proposed.
+
+Fabricio conducted the daily meetings with the team and motivated everyone to achieve the defined goals. In less than a month and a half, they were able to launch a new application and present it to beta users!
+
+I highly recommend him to any team looking for a warm, dedicated, and nice person to guide and plan projects."</p>
+                        <div class="text-center md:text-left">
+                            <p class="font-semibold text-darkgray text-lg">Pilar Minue</p>
+                            <p class="text-sm text-gray-500">Sr. Project Manager</p>
+                        </div>
+                    </div>
+
+                    <!-- Testimonio 4 -->
+                    <div class="testimonial-card-individual flex-shrink-0 w-[calc(100%-2rem)] sm:w-[calc(100%-3rem)] md:w-full snap-center md:snap-align-none bg-white rounded-lg shadow-xl p-6 md:p-8 flex flex-col mx-2 sm:mx-3 md:mx-0">
+                        <i class="fas fa-quote-left text-4xl text-primary mb-6 self-center md:self-start"></i>
+                        <p class="text-secondary italic text-center md:text-left text-lg mb-6 flex-grow leading-relaxed">"I had the privilege of working with Fabricio Agulles in the Chamber of Senators of the province of Mendoza, where he served as the Private Secretary to the Senator. During our time together, Fabricio demonstrated exceptional organizational and communicative skills.
+
+Fabricio stood out for his ability to efficiently coordinate multidisciplinary teams and maintain effective communication with stakeholders. His proactive approach and ability to adapt to challenges in an agile manner were crucial to the success of the projects we collaborated on.
+
+Fabricio Agulles is a committed and proactive leader who will undoubtedly bring significant value to any project or team he joins. I recommend Fabricio without reservation, and I am confident that he will continue to achieve new milestones in his career."</p>
+                        <div class="text-center md:text-left">
+                            <p class="font-semibold text-darkgray text-lg">Enzo Nicolás Vignoli</p>
+                            <p class="text-sm text-gray-500">Internationalist</p>
+                        </div>
+                    </div>
+
+                    <!-- Testimonio 5 -->
+                     <div class="testimonial-card-individual flex-shrink-0 w-[calc(100%-2rem)] sm:w-[calc(100%-3rem)] md:w-full snap-center md:snap-align-none bg-white rounded-lg shadow-xl p-6 md:p-8 flex flex-col mx-2 sm:mx-3 md:mx-0">
+                        <i class="fas fa-quote-left text-4xl text-primary mb-6 self-center md:self-start"></i>
+                        <p class="text-secondary italic text-center md:text-left text-lg mb-6 flex-grow leading-relaxed">"I had the privilege of working with Fabricio during my introduction to the world of management, and his impact on my professional development has been immeasurable.
+Fabri is a true expert in his field, demonstrating unwavering commitment to excellence in every project he undertakes. From day one, he showed himself as a dedicated mentor, willing to share his experience and knowledge to aid in the team's growth.
+In summary, Fabri is an exceptional professional and an invaluable asset to any team."</p>
+                        <div class="text-center md:text-left">
+                            <p class="font-semibold text-darkgray text-lg">Francisco Obaya</p>
+                            <p class="text-sm text-gray-500">Business Analytics Translator</p>
+                        </div>
+                    </div>
+
+                    <!-- Testimonio 6 -->
+                    <div class="testimonial-card-individual flex-shrink-0 w-[calc(100%-2rem)] sm:w-[calc(100%-3rem)] md:w-full snap-center md:snap-align-none bg-white rounded-lg shadow-xl p-6 md:p-8 flex flex-col mx-2 sm:mx-3 md:mx-0">
+                        <i class="fas fa-quote-left text-4xl text-primary mb-6 self-center md:self-start"></i>
+                        <p class="text-secondary italic text-center md:text-left text-lg mb-6 flex-grow leading-relaxed">"I had the pleasure of working with Fabricio on the development of LeadsCaddy, a key project for our company. From day one, he stood out for his pragmatic approach and ability to organize work efficiently. His clear and direct communication skills were essential in keeping the team aligned and meeting deadlines.
+
+He is always available to help when needed, fostering an excellent collaborative environment. On top of that, his positive attitude and great energy make working with him a real pleasure. Without a doubt, he’s a Project Manager who ensures the success of any project he’s involved in.
+
+Anyone looking to add a Project Manager to their team should definitely consider him."</p>
+                        <div class="text-center md:text-left">
+                            <p class="font-semibold text-darkgray text-lg">Shalom Jaskilioff</p>
+                            <p class="text-sm text-gray-500">Copywriting, SEO & UX</p>
+                        </div>
+                    </div>
+
+                    <!-- Testimonio 7 -->
+                    <div class="testimonial-card-individual flex-shrink-0 w-[calc(100%-2rem)] sm:w-[calc(100%-3rem)] md:w-full snap-center md:snap-align-none bg-white rounded-lg shadow-xl p-6 md:p-8 flex flex-col mx-2 sm:mx-3 md:mx-0">
+                        <i class="fas fa-quote-left text-4xl text-primary mb-6 self-center md:self-start"></i>
+                        <p class="text-secondary italic text-center md:text-left text-lg mb-6 flex-grow leading-relaxed">"Excelente persona, gran compromiso con todos los proyectos, súper atento y con muy buenas habilidades comunicativas."</p>
+                        <div class="text-center md:text-left">
+                            <p class="font-semibold text-darkgray text-lg">Pablo Depaoli</p>
+                            <p class="text-sm text-gray-500">Fullstack Developer</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Botón Anterior -->
+                <button id="testimonial-prev" aria-label="Testimonio anterior" class="absolute top-1/2 left-0 -translate-y-1/2 -translate-x-1/2 md:-translate-x-full bg-primary/70 hover:bg-primary text-white p-3 rounded-full shadow-lg transition-opacity opacity-0 group-hover:opacity-100 focus:opacity-100 z-10">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+                </button>
+                <!-- Botón Siguiente -->
+                <button id="testimonial-next" aria-label="Siguiente testimonio" class="absolute top-1/2 right-0 -translate-y-1/2 translate-x-1/2 md:translate-x-full bg-primary/70 hover:bg-primary text-white p-3 rounded-full shadow-lg transition-opacity opacity-0 group-hover:opacity-100 focus:opacity-100 z-10">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+                </button>
+            </div>
+             <!-- Indicadores de Paginación -->
+            <div id="testimonial-indicators" class="flex justify-center space-x-2 mt-8">
+                <!-- Los indicadores se generarán con JavaScript -->
+            </div>
+        </div>
+    </section>
+    <!-- Fin Sección Testimonios -->
+
+    <!-- Sección Contacto -->
+    <section id="contacto" class="py-16 section-bg fade-in-section">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl font-bold text-darkgray mb-4">¡Conectemos y Creemos Algo Increíble!</h2>
+            <p class="text-lg text-secondary max-w-xl mx-auto mb-8">
+                Estoy entusiasmado por conocer nuevos desafíos y explorar cómo mi experiencia puede aportar valor a tus objetivos de negocio. No dudes en contactarme.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6">
+                <a href="mailto:fabricioagulles@gmail.com" class="bg-primary text-white font-semibold py-3 px-6 rounded-lg shadow-md hover-accent-bg transition duration-300 flex items-center">
+                    <i class="fas fa-envelope mr-2"></i>Email
+                </a>
+                <a href="https://wa.me/34634203081" target="_blank" rel="noopener noreferrer" class="bg-green-500 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-green-600 transition duration-300 flex items-center">
+                    <i class="fab fa-whatsapp mr-2"></i>WhatsApp
+                </a>
+                <a href="https://www.linkedin.com/in/fabricio-agulles-projectmanager/" target="_blank" rel="noopener noreferrer" class="bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-blue-800 transition duration-300 flex items-center">
+                    <i class="fab fa-linkedin mr-2"></i>LinkedIn
+                </a>
+            </div>
+            <p class="text-secondary mt-8 text-sm">
+                <i class="fas fa-map-marker-alt mr-1"></i> Barcelona, España
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-darkgray text-gray-300 py-8 text-center">
+        <div class="container mx-auto px-6">
+            <div class="mb-4">
+                <a href="https://www.linkedin.com/in/fabricio-agulles-projectmanager/" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white mx-2 text-xl">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <!-- Añadir otros iconos de redes si es necesario -->
+            </div>
+            <p class="text-sm">© <span id="currentYear"></span> Fabricio Agulles. Todos los derechos reservados.</p>
+             <p class="text-xs mt-2">Hecho con <i class="fas fa-heart text-red-500"></i></p>
+        </div>
+    </footer>
+    
+    <!-- Botón para volver arriba (opcional) -->
+    <button id="scrollTopButton" class="hidden fixed bottom-5 right-5 bg-primary text-white p-3 rounded-full shadow-lg hover-accent-bg transition-opacity duration-300 z-50">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+      </svg>
+    </button>
+<script
+    src="index.js" defer>
+ </script>
+    <!-- SCRIPT JS VA AQUÍ AL FINAL DEL BODY -->
+</body>
+</html><link rel="stylesheet" href="index.css">
+<script src="index.tsx" type="module"></script>
