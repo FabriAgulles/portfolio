@@ -119,24 +119,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
     
-    // Botón de Volver Arriba (Scroll to Top)
-    const scrollTopButton = document.getElementById('scrollTopButton');
-    if (scrollTopButton) {
-        window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 300) { // Mostrar botón después de 300px de scroll
-                scrollTopButton.classList.remove('hidden');
-                scrollTopButton.classList.add('opacity-100');
-            } else {
-                scrollTopButton.classList.add('hidden');
-                scrollTopButton.classList.remove('opacity-100');
-            }
-        });
-
-        scrollTopButton.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-        
-    }
    // --- Inicio: Lógica del Carrusel de Testimonios Individual ---
     const testimonialCarousel = document.getElementById('testimonial-carousel-individual');
     const prevButton = document.getElementById('testimonial-prev');
