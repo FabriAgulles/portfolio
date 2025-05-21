@@ -688,16 +688,32 @@ Anyone looking to add a Project Manager to their team should definitely consider
         </div>
     </footer>
 
-    <!-- Botón Flotante CTA Modificado -->
-        <a href="#contacto" id="floating-cta-button" 
-       class="fixed bottom-6 left-6 z-40 bg-primary text-white font-semibold p-3 rounded-full shadow-xl hover:bg-primarydark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50 transition-all duration-300 ease-in-out flex items-center group opacity-0 animate-fadeInUpLater">
+<!-- Botón Flotante CTA Modificado para Tamaño Consistente -->
+<a href="#contacto" id="floating-cta-button" 
+   class="fixed bottom-6 left-6 z-40 bg-primary text-white font-semibold 
+          w-12 h-12 <!-- Tamaño Fijo para el círculo -->
+          rounded-full shadow-xl 
+          hover:bg-primarydark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50 
+          transition-all duration-300 ease-in-out 
+          flex items-center justify-center <!-- Centrar el icono -->
+          group 
+          opacity-0 animate-fadeInUpLater
+          hover:w-auto hover:px-5 <!-- Expansión al hacer hover -->
+          ">
     
-            <i class="fas fa-paper-plane text-xl transition-transform duration-300 ease-in-out group-hover:rotate-[10deg]"></i>
+    <i class="fas fa-paper-plane text-lg <!-- Ajuste de tamaño de icono si es necesario -->
+       transition-transform duration-300 ease-in-out 
+       group-hover:rotate-[10deg]">
+    </i>
     
-            <span class="cta-text text-sm sm:text-base whitespace-nowrap overflow-hidden transition-all duration-300 ease-in-out ml-0 group-hover:ml-2 w-0 group-hover:w-[90px] sm:group-hover:w-[100px]">
+    <span class="whitespace-nowrap overflow-hidden 
+               text-sm sm:text-base
+               transition-all duration-300 ease-in-out 
+               opacity-0 w-0 ml-0 
+               group-hover:opacity-100 group-hover:w-auto group-hover:ml-2">
         ¿Charlamos?
-            </span>
-        </a>
+    </span>
+</a>
     
     <!-- Botón para volver arriba (opcional) -->
     <button id="scrollTopButton" class="hidden fixed bottom-5 right-5 bg-primary text-white p-3 rounded-full shadow-lg hover-accent-bg transition-opacity duration-300 z-50">
