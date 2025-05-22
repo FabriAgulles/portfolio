@@ -80,7 +80,21 @@
         .scrollbar-hide {
     -ms-overflow-style: none;  /* IE y Edge */
     scrollbar-width: none;  /* Firefox */
-}
+        }
+        @keyframes fadeInUpLater {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+        }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+    }
+        .animate-fadeInUpLater {
+    animation: fadeInUpLater 0.6s ease-out 1s forwards; 
+    /* 0.6s duración, ease-out, 1s de retraso, se mantiene el estado final */
+    }    
     </style>
     <script>
         tailwind.config = {
@@ -134,27 +148,42 @@
         </div>
     </nav>
 
-    <!-- Sección Hero -->
-    <section id="hero" class="hero-bg min-h-screen flex items-center pt-16 md:pt-0">
-        <div class="container mx-auto px-6 py-16">
-            <div class="flex flex-col md:flex-row items-center">
-                <div class="md:w-1/2 text-center md:text-left mb-10 md:mb-0">
-                    <h1 class="text-4xl md:text-6xl font-bold text-darkgray mb-4">Fabricio Agulles</h1>
-                    <h2 class="text-2xl md:text-3xl font-semibold text-primary mb-6">IT Project Manager | Scrum Master | Business Manager</h2>
-                    <p class="text-lg text-secondary mb-8 leading-relaxed">
-                        Transformando ideas complejas en resultados exitosos. Lidero proyectos IT, con foco en IA y transformación digital, para impulsar el crecimiento y la eficiencia en organizaciones globales.
-                    </p>
-                    <a href="#proyectos" class="bg-primary text-white font-semibold py-3 px-8 rounded-lg shadow-lg hover-accent-bg transition duration-300">
-                        Ver Mis Proyectos
-                    </a>
-                </div>
-                <div class="md:w-1/2 flex justify-center">
-                    <!-- Reemplaza con la URL de tu foto de perfil -->
-                    <img src="https://imgur.com/KRgV8Ox.png" alt="Fabricio Agulles" class="rounded-full shadow-2xl w-64 h-64 md:w-80 md:h-80 object-cover">
-                </div>
+<!-- Sección Hero -->
+<section id="hero" class="hero-bg min-h-screen flex items-center pt-20 md:pt-0 overflow-hidden">
+    <div class="container mx-auto px-6 py-16">
+        <div class="flex flex-col md:flex-row items-center">
+            <!-- Columna de Texto -->
+            <div class="md:w-1/2 text-center md:text-left mb-10 md:mb-0 z-10">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-darkgray mb-4">Fabricio Agulles</h1>
+                <h2 class="text-2xl md:text-3xl font-semibold text-primary mb-6">IT Project Manager | Scrum Master | Business Manager</h2>
+                <p class="text-lg text-secondary mb-8 leading-relaxed max-w-xl mx-auto md:mx-0">
+                    Transformando ideas complejas en resultados exitosos. Lidero proyectos IT, con foco en IA y transformación digital, para impulsar el crecimiento y la eficiencia en organizaciones globales.
+                </p>
+                <a href="#proyectos" class="bg-primary text-white font-semibold py-3 px-8 rounded-lg shadow-lg hover:bg-primarydark transition duration-300">
+                    Ver Mis Proyectos
+                </a>
+            </div>
+
+            <!-- Columna de Imagen Modificada para Mockup -->
+            <div class="md:w-1/2 flex justify-center md:justify-end items-center mt-10 md:mt-0">
+                <img src="https://imgur.com/ZXGqIbr.png"
+                     alt="Fabricio Agulles Portfolio Mockup"
+                     class="w-full
+                            max-w-xs <!-- Máximo ancho muy pequeño en móviles extra pequeños -->
+                            sm:max-w-sm <!-- Máximo ancho en móviles -->
+                            md:max-w-md <!-- Máximo ancho en md -->
+                            lg:max-w-lg <!-- Máximo ancho en lg -->
+                            xl:max-w-xl <!-- Máximo ancho en xl -->
+                            transform 
+                            md:translate-x-8    <!-- Desplazamiento en pantallas medianas -->
+                            lg:translate-x-12   <!-- Desplazamiento en pantallas grandes -->
+                            xl:translate-x-16   <!-- Desplazamiento en pantallas extra grandes -->
+                            md:-rotate-0 hover:rotate-2 transition-transform duration-500 ease-out"> 
             </div>
         </div>
-    </section>
+    </div>
+</section>
+<!-- Fin Sección Hero -->
 
     <!-- Sección Sobre Mí -->
     <section id="sobre-mi" class="py-16 section-bg fade-in-section">
@@ -165,9 +194,9 @@
                     Soy Project Manager en IT con +5 años de experiencia liderando proyectos end-to-end, especializado en metodologías ágiles (Scrum, Kanban). He colaborado con equipos multidisciplinarios y clientes de diversos sectores como tecnología, banca, logística, gobierno, finanzas, consultoría, retail y salud, asegurando entregas de alto impacto en tiempo y forma. 
                 </p>
             </div>
-            <!-- Fin Título y Párrafo Principal Mejorados -->
-            <h3 class="text-3xl font-bold text-center text-darkgray mb-4">Aspectos Clave</h3>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12 text-center">
+            <!-- Aspectos Clave -->
+            <h2 class="text-3xl font-bold text-center text-darkgray mb-4">Aspectos Clave</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12 text-center" style="margin:40px">
                 <div class="p-6 bg-gray-100 rounded-lg shadow">
                     <i class="fas fa-briefcase text-3xl text-primary mb-3"></i>
                     <p class="font-semibold">+5 Años de Experiencia en IT</p>
@@ -380,8 +409,8 @@
                         <li class="flex items-center"><i class="fab fa-jira text-blue-500 mr-2"></i> Jira, Trello, Azure DevOps, Notion</li>
                         <li class="flex items-center"><i class="fab fa-microsoft text-blue-500 mr-2"></i> Microsoft Teams, SharePoint</li>
                         <li class="flex items-center"><i class="fas fa-robot text-blue-500 mr-2"></i> AI LLMs (GPT, Vertex, Gemini , otras)</li>
-                        <li class="flex items-center"><i class="fab fa-confluence text-blue-500 mr-2"></i> Confluence, Notion</li>
-                        <li class="flex items-center"><i class="fab fa-figma text-purple-500 mr-2"></i> Figma, FigJam, Miro, Adobe XD, Excalidraw</li>
+                        <li class="flex items-center"><i class="fab fa-confluence text-blue-500 mr-2"></i> Confluence, Notion, Excalidraw</li>
+                        <li class="flex items-center"><i class="fab fa-figma text-purple-500 mr-2"></i> Figma, FigJam, Miro, Adobe XD</li>
                          <li class="flex items-center"><i class="fab fa-slack text-pink-500 mr-2"></i> Slack</li>
                         <li class="flex items-center"><i class="fab fa-google text-red-500 mr-2"></i> Google Workspace</li>
                     </ul>
@@ -413,7 +442,7 @@
             <h2 class="text-3xl font-bold text-center text-darkgray mb-12">Mi Trayectoria Profesional como PM</h2>
             <div class="relative">
                 <!-- Línea de tiempo vertical -->
-                <div class="border-l-2 border-primary absolute h-full top-0 left-1/2 transform -translate-x-1/2 md:left-1/2 md:transform-none"></div>
+                <div class="border-l-2 border-primary absolute h-full top-0 left-1/2 transform -translate-x-1/2 md:left-1/2 md:transform-none z-10"></div> 
 
                 <!-- Experiencia Xoor -->
                 <div class="mb-8 flex md:justify-between items-center w-full right-timeline">
@@ -421,7 +450,7 @@
                     <div class="z-20 flex items-center order-1 bg-primary shadow-xl w-8 h-8 rounded-full">
                         <i class="fas fa-briefcase text-white mx-auto"></i>
                     </div>
-                    <div class="order-1 bg-white rounded-lg shadow-xl w-full md:w-5/12 px-6 py-4 card">
+                    <div class="order-1 bg-white rounded-lg shadow-xl w-full md:w-5/12 px-6 py-4 card relative z-20">
                         <h3 class="font-semibold text-lg text-primary">Project Manager & Functional Analyst</h3>
                         <p class="text-sm text-secondary mb-1">Xoor | Software Factory | Las Vegas, USA</p>
                         <p class="text-xs text-gray-500 mb-3">2024</p>
@@ -439,7 +468,7 @@
                     <div class="z-20 flex items-center order-1 bg-primary shadow-xl w-8 h-8 rounded-full">
                         <i class="fas fa-briefcase text-white mx-auto"></i>
                     </div>
-                    <div class="order-1 bg-white rounded-lg shadow-xl w-full md:w-5/12 px-6 py-4 card">
+                    <div class="order-1 bg-white rounded-lg shadow-xl w-full md:w-5/12 px-6 py-4 card relative z-20">
                         <h3 class="font-semibold text-lg text-primary">Project Manager - Scrum Master</h3>
                         <p class="text-sm text-secondary mb-1">Lubee | Software Factory | Buenos Aires, Argentina</p>
                         <p class="text-xs text-gray-500 mb-3">2023 - 2024</p>
@@ -457,7 +486,7 @@
                     <div class="z-20 flex items-center order-1 bg-primary shadow-xl w-8 h-8 rounded-full">
                         <i class="fas fa-briefcase text-white mx-auto"></i>
                     </div>
-                    <div class="order-1 bg-white rounded-lg shadow-xl w-full md:w-5/12 px-6 py-4 card">
+                    <div class="order-1 bg-white rounded-lg shadow-xl w-full md:w-5/12 px-6 py-4 card relative z-20">
                         <h3 class="font-semibold text-lg text-primary">Project Manager</h3>
                         <p class="text-sm text-secondary mb-1">Julasoft | Software Factory | Buenos Aires, Argentina</p>
                         <p class="text-xs text-gray-500 mb-3">2022 - 2023</p>
@@ -474,7 +503,7 @@
                     <div class="z-20 flex items-center order-1 bg-primary shadow-xl w-8 h-8 rounded-full">
                         <i class="fas fa-briefcase text-white mx-auto"></i>
                     </div>
-                    <div class="order-1 bg-white rounded-lg shadow-xl w-full md:w-5/12 px-6 py-4 card">
+                    <div class="order-1 bg-white rounded-lg shadow-xl w-full md:w-5/12 px-6 py-4 card relative z-20">
                         <h3 class="font-semibold text-lg text-primary">Project Manager</h3>
                         <p class="text-sm text-secondary mb-1">Golpe Digital | Marketing Agency | Mendoza, Argentina</p>
                         <p class="text-xs text-gray-500 mb-3">2021 - 2023</p>
@@ -523,7 +552,7 @@
     <!-- Sección Testimonios -->
     <section id="testimonios" class="py-16 lightgray fade-in-section">
         <div class="container mx-auto px-6">
-            <h2 class="text-3xl font-bold text-center text-darkgray mb-12">Testimonios de Colegas</h2>
+            <h2 class="text-3xl font-bold text-center text-darkgray mb-12">Testimonios de Linkedin</h2>
             
             <div class="relative group">
                 <!-- Contenedor del Carrusel -->
@@ -533,21 +562,21 @@
                     <!-- Testimonio 1 -->
                     <div class="testimonial-card-individual flex-shrink-0 w-[calc(100%-2rem)] sm:w-[calc(100%-3rem)] md:w-full snap-center md:snap-align-none bg-white rounded-lg shadow-xl p-6 md:p-8 flex flex-col mx-2 sm:mx-3 md:mx-0">
                         <i class="fas fa-quote-left text-4xl text-primary mb-6 self-center md:self-start"></i>
-                        <p class="text-secondary italic text-center md:text-left text-lg mb-6 flex-grow leading-relaxed">"Fabricio es un excelente profesional; sabe cómo planificar y gestionar un proyecto de punta a punta, siempre con mucha responsabilidad y entusiasmo. Es buen compañero y coordinador de equipos; trabaja siempre con seriedad, tranquilidad y perseverancia, ningún proyecto le da miedo de gestionar, acepta todos los desafíos sin pensarlo. Dentro de sus tantas fortalezas se encuentran, sin duda, su motivación por su profesión y sus ganas de superarse día a día. 
-Todo proyecto delegado en él, es un proyecto que será bien gestionado. Es un placer trabajar con él."</p>
+                        <p class="text-secondary italic text-center md:text-left text-lg mb-6 flex-grow leading-relaxed">"Fabricio es un muy buen profesional y un gran compañero de trabajo. Es muy metodológico y organizado en sus tareas. Posee una buena y fluida comunicación con cada miembro del equipo. Tuve la oportunidad de trabajar en varios proyectos a la par y siempre ha sabido ejecutarlo con creces. Posee las palabras indicadas a la hora de negociar con los clientes y ha sabido alcanzar los objetivos en cada uno de los proyectos en los que participó."</p>
                         <div class="text-center md:text-left">
-                            <p class="font-semibold text-darkgray text-lg">Belén Riambau</p>
-                            <p class="text-sm text-gray-500">Project Manager</p>
+                            <p class="font-semibold text-darkgray text-lg">Sebastián Mergip</p>
+                            <p class="text-sm text-gray-500">Technical Business Analyst</p>
                         </div>
                     </div>
 
                     <!-- Testimonio 2 -->
                     <div class="testimonial-card-individual flex-shrink-0 w-[calc(100%-2rem)] sm:w-[calc(100%-3rem)] md:w-full snap-center md:snap-align-none bg-white rounded-lg shadow-xl p-6 md:p-8 flex flex-col mx-2 sm:mx-3 md:mx-0">
                         <i class="fas fa-quote-left text-4xl text-primary mb-6 self-center md:self-start"></i>
-                        <p class="text-secondary italic text-center md:text-left text-lg mb-6 flex-grow leading-relaxed">"Fabricio es un muy buen profesional y un gran compañero de trabajo. Es muy metodológico y organizado en sus tareas. Posee una buena y fluida comunicación con cada miembro del equipo. Tuve la oportunidad de trabajar en varios proyectos a la par y siempre ha sabido ejecutarlo con creces. Posee las palabras indicadas a la hora de negociar con los clientes y ha sabido alcanzar los objetivos en cada uno de los proyectos en los que participó."</p>
+                        <p class="text-secondary italic text-center md:text-left text-lg mb-6 flex-grow leading-relaxed">"Fabricio es un excelente profesional; sabe cómo planificar y gestionar un proyecto de punta a punta, siempre con mucha responsabilidad y entusiasmo. Es buen compañero y coordinador de equipos; trabaja siempre con seriedad, tranquilidad y perseverancia, ningún proyecto le da miedo de gestionar, acepta todos los desafíos sin pensarlo. Dentro de sus tantas fortalezas se encuentran, sin duda, su motivación por su profesión y sus ganas de superarse día a día. 
+Todo proyecto delegado en él, es un proyecto que será bien gestionado. Es un placer trabajar con él."</p>
                         <div class="text-center md:text-left">
-                            <p class="font-semibold text-darkgray text-lg">Sebastián Mergip</p>
-                            <p class="text-sm text-gray-500">Technical Business Analyst</p>
+                            <p class="font-semibold text-darkgray text-lg">Belén Rimbau</p>
+                            <p class="text-sm text-gray-500">Project Manager</p>
                         </div>
                     </div>
                     
@@ -672,13 +701,34 @@ Anyone looking to add a Project Manager to their team should definitely consider
              <p class="text-xs mt-2">Hecho con <i class="fas fa-heart text-red-500"></i></p>
         </div>
     </footer>
+
+<!-- Botón Flotante CTA Modificado para Tamaño Consistente -->
+<a href="#contacto" id="floating-cta-button" 
+   class="fixed bottom-6 right-6 z-40 bg-primary text-white font-semibold 
+          w-12 h-12 <!-- Tamaño Fijo para el círculo -->
+          rounded-full shadow-xl 
+          hover:bg-primarydark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50 
+          transition-all duration-300 ease-in-out 
+          flex items-center justify-center <!-- Centrar el icono -->
+          group 
+          opacity-0 animate-fadeInUpLater
+          hover:w-auto hover:px-5 <!-- Expansión al hacer hover -->
+          ">
     
-    <!-- Botón para volver arriba (opcional) -->
-    <button id="scrollTopButton" class="hidden fixed bottom-5 right-5 bg-primary text-white p-3 rounded-full shadow-lg hover-accent-bg transition-opacity duration-300 z-50">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
-      </svg>
-    </button>
+    <i class="fas fa-paper-plane text-lg <!-- Ajuste de tamaño de icono si es necesario -->
+       transition-transform duration-300 ease-in-out 
+       group-hover:rotate-[10deg]">
+    </i>
+    
+    <span class="whitespace-nowrap overflow-hidden 
+               text-sm sm:text-base
+               transition-all duration-300 ease-in-out 
+               opacity-0 w-0 ml-0 
+               group-hover:opacity-100 group-hover:w-auto group-hover:ml-2">
+        ¿Charlamos?
+    </span>
+</a>
+    
 <script
     src="index.js" defer>
  </script>
