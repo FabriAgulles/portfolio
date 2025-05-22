@@ -148,27 +148,42 @@
         </div>
     </nav>
 
-    <!-- Sección Hero -->
-    <section id="hero" class="hero-bg min-h-screen flex items-center pt-16 md:pt-0">
-        <div class="container mx-auto px-6 py-16">
-            <div class="flex flex-col md:flex-row items-center">
-                <div class="md:w-1/2 text-center md:text-left mb-10 md:mb-0">
-                    <h1 class="text-4xl md:text-6xl font-bold text-darkgray mb-4">Fabricio Agulles</h1>
-                    <h2 class="text-2xl md:text-3xl font-semibold text-primary mb-6">IT Project Manager | Scrum Master | Business Manager</h2>
-                    <p class="text-lg text-secondary mb-8 leading-relaxed">
-                        Transformando ideas complejas en resultados exitosos. Lidero proyectos IT, con foco en IA y transformación digital, para impulsar el crecimiento y la eficiencia en organizaciones globales.
-                    </p>
-                    <a href="#proyectos" class="bg-primary text-white font-semibold py-3 px-8 rounded-lg shadow-lg hover-accent-bg transition duration-300">
-                        Ver Mis Proyectos
-                    </a>
-                </div>
-                <div class="md:w-1/2 flex justify-center">
-                    <!-- Reemplaza con la URL de tu foto de perfil -->
-                    <img src="https://imgur.com/KRgV8Ox.png" alt="Fabricio Agulles" class="rounded-full shadow-2xl w-64 h-64 md:w-80 md:h-80 object-cover">
-                </div>
+<!-- Sección Hero -->
+<section id="hero" class="hero-bg min-h-screen flex items-center pt-20 md:pt-0 overflow-hidden">
+    <div class="container mx-auto px-6 py-16">
+        <div class="flex flex-col md:flex-row items-center">
+            <!-- Columna de Texto -->
+            <div class="md:w-1/2 text-center md:text-left mb-10 md:mb-0 z-10">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-darkgray mb-4">Fabricio Agulles</h1>
+                <h2 class="text-2xl md:text-3xl font-semibold text-primary mb-6">IT Project Manager | Scrum Master | Business Manager</h2>
+                <p class="text-lg text-secondary mb-8 leading-relaxed max-w-xl mx-auto md:mx-0">
+                    Transformando ideas complejas en resultados exitosos. Lidero proyectos IT, con foco en IA y transformación digital, para impulsar el crecimiento y la eficiencia en organizaciones globales.
+                </p>
+                <a href="#proyectos" class="bg-primary text-white font-semibold py-3 px-8 rounded-lg shadow-lg hover:bg-primarydark transition duration-300">
+                    Ver Mis Proyectos
+                </a>
+            </div>
+
+            <!-- Columna de Imagen Modificada para Mockup -->
+            <div class="md:w-1/2 flex justify-center md:justify-end items-center mt-10 md:mt-0">
+                <img src="https://imgur.com/ZXGqIbr.png"
+                     alt="Fabricio Agulles Portfolio Mockup"
+                     class="w-full
+                            max-w-xs <!-- Máximo ancho muy pequeño en móviles extra pequeños -->
+                            sm:max-w-sm <!-- Máximo ancho en móviles -->
+                            md:max-w-md <!-- Máximo ancho en md -->
+                            lg:max-w-lg <!-- Máximo ancho en lg -->
+                            xl:max-w-xl <!-- Máximo ancho en xl -->
+                            transform 
+                            md:translate-x-8    <!-- Desplazamiento en pantallas medianas -->
+                            lg:translate-x-12   <!-- Desplazamiento en pantallas grandes -->
+                            xl:translate-x-16   <!-- Desplazamiento en pantallas extra grandes -->
+                            md:-rotate-0 hover:rotate-2 transition-transform duration-500 ease-out"> 
             </div>
         </div>
-    </section>
+    </div>
+</section>
+<!-- Fin Sección Hero -->
 
     <!-- Sección Sobre Mí -->
     <section id="sobre-mi" class="py-16 section-bg fade-in-section">
