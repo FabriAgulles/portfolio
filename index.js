@@ -120,107 +120,157 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
    // --- Inicio: Lógica del Carrusel de Testimonios Individual ---
-    const testimonialCarousel = document.getElementById('testimonial-carousel-individual');
-    const prevButton = document.getElementById('testimonial-prev');
-    const nextButton = document.getElementById('testimonial-next');
-    const indicatorsContainer = document.getElementById('testimonial-indicators');
+        // --- START Testimonial Carousel Logic ---
+    const testimonialCarousel = document.getElementById('testimonial-carousel');
+    const prevTestimonialButton = document.getElementById('testimonial-prev');
+    const nextTestimonialButton = document.getElementById('testimonial-next');
+    const testimonialIndicatorsContainer = document.getElementById('testimonial-indicators');
+    let testimonialCards = []; // Será poblado después de asegurar que el DOM está listo
 
-    if (testimonialCarousel && prevButton && nextButton && indicatorsContainer) {
-        const testimonials = Array.from(testimonialCarousel.children);
-        let currentIndex = 0;
-        const totalTestimonials = testimonials.length;
+    let currentTestimonialIndex = 0;
+    let testimonialScrollTimeout;
+    let testimonialResizeTimeout;
 
-        // Crear indicadores
-        testimonials.forEach((_, index) => {
-            const button = document.createElement('button');
-            button.setAttribute('aria-label', `Ir al testimonio ${index + 1}`);
-            button.classList.add('w-3', 'h-3', 'rounded-full', 'bg-gray-300', 'hover:bg-gray-400', 'transition-colors');
-            if (index === 0) {
-                button.classList.remove('bg-gray-300');
-                button.classList.add('bg-primary');
+    function setupTestimonialCarousel() {
+        if (!testimonialCarousel) {
+            console.warn("Testimonial carousel element not found.");
+            if (prevTestimonialButton) prevTestimonialButton.style.display = 'none';
+            if (nextTestimonialButton) nextTestimonialButton.style.display = 'none';
+            if (testimonialIndicatorsContainer) testimonialIndicatorsContainer.style.display = 'none';
+            return;
+        }
+
+        testimonialCards = Array.from(testimonialCarousel.querySelectorAll('.testimonial-card'));
+
+        if (testimonialCards.length === 0) {
+            if (prevTestimonialButton) prevTestimonialButton.style.display = 'none';
+            if (nextTestimonialButton) nextTestimonialButton.style.display = 'none';
+            if (testimonialIndicatorsContainer) testimonialIndicatorsContainer.style.display = 'none';
+            return;
+        }
+
+        function updateTestimonialView(smooth = true, focusCard = true) {
+            if (testimonialCards[currentTestimonialIndex]) {
+                const cardToScroll = testimonialCards[currentTestimonialIndex];
+                
+                // Forzamos el scroll al centro de la card
+                const carouselScrollLeft = testimonialCarousel.scrollLeft;
+                const carouselWidth = testimonialCarousel.offsetWidth;
+                const cardLeft = cardToScroll.offsetLeft;
+                const cardWidth = cardToScroll.offsetWidth;
+                
+                const targetScrollLeft = cardLeft - (carouselWidth / 2) + (cardWidth / 2) - parseFloat(getComputedStyle(testimonialCarousel).paddingLeft);
+
+
+                testimonialCarousel.scrollTo({
+                    left: targetScrollLeft,
+                    behavior: smooth ? 'smooth' : 'auto'
+                });
+
+                // Opcional: dar foco a la card para accesibilidad (puede causar saltos si no se maneja bien con el scroll)
+                // if (focusCard && smooth) { // Solo si es una interacción directa
+                //    setTimeout(() => cardToScroll.focus({ preventScroll: true }), 350); // Dar tiempo a la animación de scroll
+                // }
             }
-            button.addEventListener('click', () => {
-                goToTestimonial(index);
-            });
-            indicatorsContainer.appendChild(button);
-        });
-        const indicatorButtons = Array.from(indicatorsContainer.children);
-
-        function updateIndicators() {
-            indicatorButtons.forEach((button, index) => {
-                button.classList.toggle('bg-primary', index === currentIndex);
-                button.classList.toggle('bg-gray-300', index !== currentIndex);
-            });
+            updateTestimonialControls();
+            updateTestimonialIndicators();
         }
 
-        function goToTestimonial(index) {
-            if (index < 0 || index >= totalTestimonials) return;
-            
-            const scrollAmount = testimonials[index].offsetLeft - testimonialCarousel.offsetLeft;
-            testimonialCarousel.scrollTo({
-                left: scrollAmount,
-                behavior: 'smooth'
-            });
-            currentIndex = index;
-            updateButtonStates();
-            updateIndicators();
+        function updateTestimonialControls() {
+            if (prevTestimonialButton) prevTestimonialButton.disabled = currentTestimonialIndex === 0;
+            if (nextTestimonialButton) nextTestimonialButton.disabled = currentTestimonialIndex >= testimonialCards.length - 1;
         }
 
-        function updateButtonStates() {
-            prevButton.disabled = currentIndex === 0;
-            nextButton.disabled = currentIndex === totalTestimonials - 1;
-            prevButton.classList.toggle('opacity-50', prevButton.disabled);
-            prevButton.classList.toggle('cursor-not-allowed', prevButton.disabled);
-            nextButton.classList.toggle('opacity-50', nextButton.disabled);
-            nextButton.classList.toggle('cursor-not-allowed', nextButton.disabled);
+        function updateTestimonialIndicators() {
+            if (!testimonialIndicatorsContainer) return;
+            testimonialIndicatorsContainer.innerHTML = '';
+            testimonialCards.forEach((_, index) => {
+                const button = document.createElement('button');
+                button.setAttribute('aria-label', `Ir al testimonio ${index + 1}`);
+                button.classList.add('w-2.5', 'h-2.5', 'rounded-full', 'transition-all', 'duration-300', 'ease-in-out');
+                if (index === currentTestimonialIndex) {
+                    button.classList.add('bg-primary', 'scale-125');
+                } else {
+                    button.classList.add('bg-gray-300', 'hover:bg-gray-400');
+                }
+                button.addEventListener('click', () => {
+                    currentTestimonialIndex = index;
+                    updateTestimonialView(true, true);
+                });
+                testimonialIndicatorsContainer.appendChild(button);
+            });
         }
         
-        prevButton.addEventListener('click', () => {
-            goToTestimonial(currentIndex - 1);
-        });
-
-        nextButton.addEventListener('click', () => {
-            goToTestimonial(currentIndex + 1);
-        });
-
-        // Actualizar en scroll manual (si el usuario usa el scroll)
-        let scrollTimeout;
-        testimonialCarousel.addEventListener('scroll', () => {
-            clearTimeout(scrollTimeout);
-            scrollTimeout = setTimeout(() => {
-                const scrollLeft = testimonialCarousel.scrollLeft;
-                const carouselWidth = testimonialCarousel.offsetWidth;
+        function determineActiveCardOnScroll() {
+            clearTimeout(testimonialScrollTimeout);
+            testimonialScrollTimeout = setTimeout(() => {
+                if (!testimonialCarousel) return;
+                const carouselRect = testimonialCarousel.getBoundingClientRect();
+                const carouselCenterPoint = carouselRect.left + (carouselRect.width / 2);
                 
-                let newIndex = 0;
-                // Encuentra el índice del testimonio más visible
-                for(let i = 0; i < testimonials.length; i++) {
-                    const testimonial = testimonials[i];
-                    const testimonialMidPoint = testimonial.offsetLeft + testimonial.offsetWidth / 2;
-                    const carouselMidPoint = scrollLeft + carouselWidth / 2;
-                    if (Math.abs(testimonialMidPoint - carouselMidPoint) < testimonial.offsetWidth / 2) {
-                         newIndex = i;
-                         break; // Encontramos el más centrado
+                let closestIndex = 0;
+                let minDistance = Infinity;
+
+                testimonialCards.forEach((card, index) => {
+                    const cardRect = card.getBoundingClientRect();
+                    const cardCenterPoint = cardRect.left + (cardRect.width / 2);
+                    const distance = Math.abs(carouselCenterPoint - cardCenterPoint);
+
+                    if (distance < minDistance) {
+                        minDistance = distance;
+                        closestIndex = index;
                     }
+                });
+                
+                if (currentTestimonialIndex !== closestIndex) {
+                    currentTestimonialIndex = closestIndex;
+                    // No llamar a updateTestimonialView aquí para evitar bucles de scroll,
+                    // solo actualizar controles e indicadores. El scroll ya sucedió.
+                    updateTestimonialControls();
+                    updateTestimonialIndicators();
                 }
-                // Si el scroll está muy cerca del final, forzar el último índice
-                if (testimonialCarousel.scrollLeft + carouselWidth >= testimonialCarousel.scrollWidth - 10) { // -10 es un pequeño umbral
-                    newIndex = totalTestimonials - 1;
-                }
+            }, 100); // Debounce para optimizar
+        }
 
-
-                if (currentIndex !== newIndex) {
-                    currentIndex = newIndex;
-                    updateButtonStates();
-                    updateIndicators();
+        if (nextTestimonialButton) {
+            nextTestimonialButton.addEventListener('click', () => {
+                if (currentTestimonialIndex < testimonialCards.length - 1) {
+                    currentTestimonialIndex++;
+                    updateTestimonialView(true, true);
                 }
-            }, 150); // Un pequeño delay para no sobrecargar
+            });
+        }
+
+        if (prevTestimonialButton) {
+            prevTestimonialButton.addEventListener('click', () => {
+                if (currentTestimonialIndex > 0) {
+                    currentTestimonialIndex--;
+                    updateTestimonialView(true, true);
+                }
+            });
+        }
+        
+        if (testimonialCarousel) {
+            testimonialCarousel.addEventListener('scroll', determineActiveCardOnScroll, { passive: true });
+        }
+
+        window.addEventListener('resize', () => {
+            clearTimeout(testimonialResizeTimeout);
+            testimonialResizeTimeout = setTimeout(() => {
+                updateTestimonialView(false, false); // Re-centrar sin animación y sin forzar foco
+            }, 250);
         });
 
-
-        // Inicializar estado de botones e indicadores
-        updateButtonStates();
-        updateIndicators(); // Asegura que el primer indicador esté activo al cargar
-
+        // Initial setup
+        updateTestimonialView(false, false); // Carga inicial sin animación ni foco
     }
+
+    // Asegurarse que el DOM está completamente cargado, especialmente las imágenes dentro de las cards si afectan el tamaño
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', setupTestimonialCarousel);
+    } else {
+        setupTestimonialCarousel(); // DOM ya está listo
+    }
+    // --- END Testimonial Carousel Logic ---
     // --- Fin: Lógica del Carrusel de Testimonios Individual ---
 });   
