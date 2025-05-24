@@ -119,322 +119,252 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
     
-   // --- START Testimonial Carousel Logic (Principal) ---
-const testimonialCarousel = document.getElementById('testimonial-carousel');
-const prevTestimonialButton = document.getElementById('testimonial-prev');
-const nextTestimonialButton = document.getElementById('testimonial-next');
-const testimonialIndicatorsContainer = document.getElementById('testimonial-indicators');
-let testimonialCards = [];
-let currentTestimonialIndex = 0; // Este índice será compartido y clave
-let testimonialScrollTimeout;
-let testimonialResizeTimeout;
+   // ---- NUEVA LÓGICA PARA TESTIMONIOS ----
+    const testimonialCarousel = document.getElementById('testimonial-carousel');
+    const testimonialCards = document.querySelectorAll('.testimonial-card[data-testimonial-index]');
+    const testimonialPrevButton = document.getElementById('testimonial-prev');
+    const testimonialNextButton = document.getElementById('testimonial-next');
+    const testimonialIndicatorsContainer = document.getElementById('testimonial-indicators');
 
-// --- START Testimonial Individual Modal Logic ---
-const testimonialIndividualModal = document.getElementById('testimonial-individual-modal');
-const closeIndividualModalButton = document.getElementById('close-testimonial-individual-modal-button');
-const modalTestimonialText = document.getElementById('modal-testimonial-text');
-const modalTestimonialAuthor = document.getElementById('modal-testimonial-author');
-const modalTestimonialCompany = document.getElementById('modal-testimonial-company');
-const modalIndividualPrevButton = document.getElementById('modal-individual-prev');
-const modalIndividualNextButton = document.getElementById('modal-individual-next');
-const MAX_EXCERPT_LENGTH = 230; // Caracteres para el extracto
-
-// Datos de los testimonios (DEBEN COINCIDIR CON TU HTML Y ORDEN)
-const testimonialsData = [
-    {
-        text: "Fabricio es un excelente profesional; sabe cómo planificar y gestionar un proyecto de punta a punta, siempre con mucha responsabilidad y entusiasmo. Es buen compañero y coordinador de equipos; trabaja siempre con seriedad, tranquilidad y perseverancia, ningún proyecto le da miedo de gestionar, acepta todos los desafíos sin pensarlo. Dentro de sus tantas fortalezas se encuentran, sin duda, su motivación por su profesión y sus ganas de superarse día a día. Todo proyecto delegado en él, es un proyecto que será bien gestionado. Es un placer trabajar con él.",
-        author: "Belén Riambau",
-        company: "Project Manager"
-    },
-    {
-        text: "Fabricio es un muy buen profesional y un gran compañero de trabajo. Es muy metodológico y organizado en sus tareas. Posee una buena y fluida comunicación con cada miembro del equipo. Tuve la oportunidad de trabajar en varios proyectos a la par y siempre ha sabido ejecutarlo con creces. Posee las palabras indicadas a la hora de negociar con los clientes y ha sabido alcanzar los objetivos en cada uno de los proyectos en los que participó.",
-        author: "Sebastián Mergip",
-        company: "Technical Business Analyst"
-    },
-    {
-        text: "I had the opportunity to lead Fabricio as part of our Project Management Team for a short period of time, but I can confidently say he is a reliable, skilled PM who is willing to learn constantly. The onboarding process was very smooth, and after a few weeks, Fabricio started working on a project from scratch, making sure to follow the company's best practices. In addition, we had weekly meetings in which we went over doubts and improvements that he proposed. Fabricio conducted the daily meetings with the team and motivated everyone to achieve the defined goals. In less than a month and a half, they were able to launch a new application and present it to beta users! I highly recommend him to any team looking for a warm, dedicated, and nice person to guide and plan projects.",
-        author: "Pilar Minue",
-        company: "Sr. Project Manager"
-    },
-    {
-        text: "I had the privilege of working with Fabricio Agulles in the Chamber of Senators of the province of Mendoza, where he served as the Private Secretary to the Senator. During our time together, Fabricio demonstrated exceptional organizational and communicative skills. Fabricio stood out for his ability to efficiently coordinate multidisciplinary teams and maintain effective communication with stakeholders. His proactive approach and ability to adapt to challenges in an agile manner were crucial to the success of the projects we collaborated on. Fabricio Agulles is a committed and proactive leader who will undoubtedly bring significant value to any project or team he joins. I recommend Fabricio without reservation, and I am confident that he will continue to achieve new milestones in his career.",
-        author: "Enzo Nicolás Vignoli",
-        company: "Internationalist"
-    },
-    {
-        text: "I had the privilege of working with Fabricio during my introduction to the world of management, and his impact on my professional development has been immeasurable. Fabri is a true expert in his field, demonstrating unwavering commitment to excellence in every project he undertakes. From day one, he showed himself as a dedicated mentor, willing to share his experience and knowledge to aid in the team's growth. In summary, Fabri is an exceptional professional and an invaluable asset to any team.",
-        author: "Francisco Obaya",
-        company: "Business Analytics Translator"
-    },
-    {
-        text: "I had the pleasure of working with Fabricio on the development of LeadsCaddy, a key project for our company. From day one, he stood out for his pragmatic approach and ability to organize work efficiently. His clear and direct communication skills were essential in keeping the team aligned and meeting deadlines. He is always available to help when needed, fostering an excellent collaborative environment. On top of that, his positive attitude and great energy make working with him a real pleasure. Without a doubt, he’s a Project Manager who ensures the success of any project he’s involved in. Anyone looking to add a Project Manager to their team should definitely consider him.",
-        author: "Shalom Jaskilioff",
-        company: "Copywriting, SEO & UX"
-    },
-    {
-        text: "Excelente persona, gran compromiso con todos los proyectos, súper atento y con muy buenas habilidades comunicativas.",
-        author: "Pablo Depaoli",
-        company: "Fullstack Developer"
-    }
-];
-
-function setupTestimonialCarousel() {
-    if (!testimonialCarousel) return;
-    testimonialCards = Array.from(testimonialCarousel.querySelectorAll('.testimonial-card'));
-    if (testimonialCards.length === 0) return;
-
-    testimonialCards.forEach((card, index) => {
-        const excerptDiv = card.querySelector('.testimonial-excerpt');
-        const fullText = testimonialsData[index] ? testimonialsData[index].text : (excerptDiv ? excerptDiv.textContent : '');
-        
-        const isClamped = excerptDiv && (window.getComputedStyle(excerptDiv).webkitLineClamp === '5' || window.getComputedStyle(excerptDiv).display === '-webkit-box');
-        if (excerptDiv) {
-            if (!isClamped && fullText.length > MAX_EXCERPT_LENGTH) {
-                excerptDiv.textContent = fullText.substring(0, MAX_EXCERPT_LENGTH) + "...";
-            } else if (!isClamped) {
-                 excerptDiv.textContent = fullText;
-            }
-            // Si está clamped por CSS, dejamos que CSS haga su trabajo.
-            // Si no, y es corto, mostramos el texto completo o el texto original del div.
-        }
-
-
-        const openModalButton = card.querySelector('.open-testimonial-modal-button');
-        if (openModalButton) {
-            openModalButton.addEventListener('click', () => {
-                // currentTestimonialIndex ya debería estar actualizado por el scroll/click del carrusel principal
-                // pero lo reconfirmamos desde el data-attribute por si acaso
-                const clickedIndex = parseInt(openModalButton.dataset.testimonialIndex);
-                currentTestimonialIndex = clickedIndex; // Aseguramos que el índice global esté correcto
-                openTestimonialIndividualModal(currentTestimonialIndex);
-            });
-        }
-    });
-
-    function updateTestimonialView(smooth = true) {
-        // Asegurarse de que currentTestimonialIndex esté dentro de los límites
-        if (currentTestimonialIndex < 0) currentTestimonialIndex = 0;
-        if (currentTestimonialIndex >= testimonialCards.length) currentTestimonialIndex = testimonialCards.length - 1;
-        
-        if (testimonialCards.length > 0 && testimonialCards[currentTestimonialIndex]) {
-            const cardToScroll = testimonialCards[currentTestimonialIndex];
-            const carouselWidth = testimonialCarousel.offsetWidth;
-            const cardLeft = cardToScroll.offsetLeft;
-            const cardWidth = cardToScroll.offsetWidth;
-            const paddingLeft = testimonialCarousel.paddingLeft ? parseFloat(getComputedStyle(testimonialCarousel).paddingLeft) : 0;
-            const targetScrollLeft = cardLeft - (carouselWidth / 2) + (cardWidth / 2) - paddingLeft;
-            testimonialCarousel.scrollTo({ left: targetScrollLeft, behavior: smooth ? 'smooth' : 'auto' });
-        }
-        updateTestimonialControls();
-        updateTestimonialIndicators();
-    }
-
-    function updateTestimonialControls() {
-        if (prevTestimonialButton) prevTestimonialButton.disabled = currentTestimonialIndex === 0;
-        if (nextTestimonialButton) nextTestimonialButton.disabled = currentTestimonialIndex >= testimonialsData.length - 1;
-    }
-
-    function updateTestimonialIndicators() {
-        if (!testimonialIndicatorsContainer) return;
-        testimonialIndicatorsContainer.innerHTML = '';
-        testimonialsData.forEach((_, index) => { // Usar testimonialsData.length para los indicadores
-            const button = document.createElement('button');
-            button.setAttribute('aria-label', `Ir al testimonio ${index + 1}`);
-            button.classList.add('w-2.5', 'h-2.5', 'rounded-full', 'transition-all', 'duration-300', 'ease-in-out');
-            if (index === currentTestimonialIndex) {
-                button.classList.add('bg-primary', 'scale-125');
-            } else {
-                button.classList.add('bg-gray-300', 'hover:bg-gray-400');
-            }
-            button.addEventListener('click', () => {
-                currentTestimonialIndex = index;
-                updateTestimonialView(true);
-            });
-            testimonialIndicatorsContainer.appendChild(button);
-        });
-    }
+    // Testimonial Modal Elements
+    const testimonialDetailModal = document.getElementById('testimonial-detail-modal');
+    const closeTestimonialModalButton = document.getElementById('close-testimonial-modal-button');
+    const modalTestimonialText = document.getElementById('modal-testimonial-text');
+    const modalAuthorName = document.getElementById('modal-author-name');
+    const modalAuthorTitle = document.getElementById('modal-author-title');
+    const modalPrevTestimonialButton = document.getElementById('modal-prev-testimonial');
+    const modalNextTestimonialButton = document.getElementById('modal-next-testimonial');
     
-    function determineActiveCardOnScroll() {
-        clearTimeout(testimonialScrollTimeout);
-        testimonialScrollTimeout = setTimeout(() => {
-            if (!testimonialCarousel || testimonialCards.length === 0) return;
-            const carouselRect = testimonialCarousel.getBoundingClientRect();
-            const carouselCenterPoint = carouselRect.left + (carouselRect.width / 2);
-            let closestIndex = 0;
-            let minDistance = Infinity;
+    let currentOpenTestimonialIndex = 0; // Para el carrusel principal
+    let currentModalTestimonialIndex = -1; // Para el modal
+    const MAX_LINES_EXCERPT = 4;
+    const AVG_CHARS_PER_LINE_ESTIMATE = 70; // Ajustar según sea necesario
 
-            testimonialCards.forEach((card, index) => {
-                const cardRect = card.getBoundingClientRect();
-                if (!cardRect.width) return; // Skip if card is not rendered properly
-                const cardCenterPoint = cardRect.left + (cardRect.width / 2);
-                const distance = Math.abs(carouselCenterPoint - cardCenterPoint);
-                if (distance < minDistance) {
-                    minDistance = distance;
-                    closestIndex = index;
+    function truncateTextForCard(textElement, fullText, maxLines, avgCharsPerLine) {
+        if (!textElement || !fullText) return;
+
+        const linesArray = fullText.split('\n');
+        let excerpt;
+
+        if (linesArray.length >= maxLines) {
+            excerpt = linesArray.slice(0, maxLines).join('\n');
+            if (fullText.length > excerpt.length || linesArray.length > maxLines) {
+                 // Solo añade "..." si realmente se truncó o hay más líneas
+                excerpt = linesArray.slice(0, maxLines).join('\n').substring(0, maxLines * avgCharsPerLine -3) + "...";
+            }
+        } else { // Menos saltos de línea que maxLines, o un solo párrafo largo
+            const maxLength = maxLines * avgCharsPerLine;
+            if (fullText.length > maxLength) {
+                let tempExcerpt = fullText.substring(0, maxLength -3); // Dejar espacio para "..."
+                const lastSpace = tempExcerpt.lastIndexOf(' ');
+                // Cortar en el último espacio si es razonable
+                if (lastSpace > (maxLength - 25) && lastSpace > 0) { 
+                    excerpt = tempExcerpt.substring(0, lastSpace) + "...";
+                } else {
+                    excerpt = tempExcerpt + "...";
                 }
-            });
-            
-            if (currentTestimonialIndex !== closestIndex) {
-                currentTestimonialIndex = closestIndex; // Actualiza el índice global
-                updateTestimonialControls();
-                updateTestimonialIndicators();
+            } else {
+                excerpt = fullText;
             }
-        }, 150); 
+        }
+        textElement.innerHTML = excerpt.replace(/\n/g, '<br>');
+    }
+    
+    function setupTestimonialCarousel() {
+        if (!testimonialCarousel || testimonialCards.length === 0) return;
+
+        testimonialCards.forEach((card, index) => {
+            const excerptElement = card.querySelector('.testimonial-excerpt');
+            const fullText = card.dataset.fullText;
+            truncateTextForCard(excerptElement, fullText, MAX_LINES_EXCERPT, AVG_CHARS_PER_LINE_ESTIMATE);
+
+            // Event listener para "Leer más..."
+            const readMoreButton = card.querySelector('.open-testimonial-modal-button');
+            if (readMoreButton) {
+                readMoreButton.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    openTestimonialDetailModal(index);
+                });
+            }
+        });
+
+        // Inicializar indicadores
+        if (testimonialIndicatorsContainer) {
+            testimonialIndicatorsContainer.innerHTML = ''; // Limpiar existentes
+            for (let i = 0; i < testimonialCards.length; i++) {
+                const button = document.createElement('button');
+                button.classList.add('w-2.5', 'h-2.5', 'rounded-full', 'transition-colors', 'duration-300');
+                button.classList.add(i === 0 ? 'bg-primary' : 'bg-gray-300', 'hover:bg-primary/70');
+                button.setAttribute('aria-label', `Ir al testimonio ${i + 1}`);
+                button.addEventListener('click', () => scrollToTestimonial(i));
+                testimonialIndicatorsContainer.appendChild(button);
+            }
+        }
+        updateCarouselControls();
     }
 
-    if (nextTestimonialButton) {
-        nextTestimonialButton.addEventListener('click', () => {
-            if (currentTestimonialIndex < testimonialsData.length - 1) {
-                currentTestimonialIndex++;
-                updateTestimonialView(true);
+    function updateCarouselControls() {
+        if (!testimonialCarousel) return;
+        const scrollLeft = testimonialCarousel.scrollLeft;
+        const scrollWidth = testimonialCarousel.scrollWidth;
+        const clientWidth = testimonialCarousel.clientWidth;
+
+        if (testimonialPrevButton) testimonialPrevButton.disabled = scrollLeft < 10; // Pequeño umbral
+        if (testimonialNextButton) testimonialNextButton.disabled = (scrollLeft + clientWidth + 10) >= scrollWidth;
+
+        // Actualizar indicadores activos
+        if (testimonialIndicatorsContainer) {
+            const cardWidth = testimonialCards[0]?.offsetWidth || clientWidth;
+            let activeIndex = Math.round(scrollLeft / cardWidth);
+            // Ajuste si el carrusel no tiene snapping perfecto o hay márgenes
+            if (testimonialCards[activeIndex]) {
+                const cardRect = testimonialCards[activeIndex].getBoundingClientRect();
+                const carouselRect = testimonialCarousel.getBoundingClientRect();
+                if (Math.abs(cardRect.left - carouselRect.left) > cardWidth / 2 && scrollLeft > 0) {
+                     // Si el centro de la tarjeta está más allá de la mitad del carrusel y no es la primera
+                    if (scrollLeft > (activeIndex * cardWidth + cardWidth/2) && activeIndex < testimonialCards.length -1) {
+                        // activeIndex++;
+                    }
+                }
             }
-        });
-    }
-    if (prevTestimonialButton) {
-        prevTestimonialButton.addEventListener('click', () => {
-            if (currentTestimonialIndex > 0) {
-                currentTestimonialIndex--;
-                updateTestimonialView(true);
+             activeIndex = Math.min(Math.max(activeIndex, 0), testimonialCards.length - 1);
+
+
+            const indicators = testimonialIndicatorsContainer.children;
+            for (let i = 0; i < indicators.length; i++) {
+                indicators[i].classList.toggle('bg-primary', i === activeIndex);
+                indicators[i].classList.toggle('bg-gray-300', i !== activeIndex);
             }
-        });
+             currentOpenTestimonialIndex = activeIndex; // Sincronizar índice del carrusel
+        }
     }
+    
+    function scrollToTestimonial(index) {
+        if (!testimonialCarousel || !testimonialCards[index]) return;
+        const card = testimonialCards[index];
+        // Considerar el margen/padding del carrusel si se usa -mx-
+        const carouselPadding = parseInt(getComputedStyle(testimonialCarousel).paddingLeft) || 0;
+        
+        // Calcula el offset de la tarjeta relativo al contenedor del carrusel
+        // card.offsetLeft ya considera la posición de la tarjeta dentro de su contenedor scrolleable
+        let scrollPosition = card.offsetLeft - carouselPadding;
+
+        // Ajuste para centrar si es posible (especialmente útil si no hay snap)
+        // const cardWidth = card.offsetWidth;
+        // const carouselWidth = testimonialCarousel.clientWidth;
+        // scrollPosition = scrollPosition - (carouselWidth / 2) + (cardWidth / 2);
+        // scrollPosition = Math.max(0, scrollPosition); // No ir antes del inicio
+        // scrollPosition = Math.min(scrollPosition, testimonialCarousel.scrollWidth - carouselWidth); // No ir más allá del final
+
+        testimonialCarousel.scrollTo({
+            left: scrollPosition,
+            behavior: 'smooth'
+        });
+        currentOpenTestimonialIndex = index;
+        // updateCarouselControls() se llamará con el evento 'scroll'
+    }
+
     if (testimonialCarousel) {
-        testimonialCarousel.addEventListener('scroll', determineActiveCardOnScroll, { passive: true });
+        testimonialCarousel.addEventListener('scroll', updateCarouselControls);
     }
-    window.addEventListener('resize', () => {
-        clearTimeout(testimonialResizeTimeout);
-        testimonialResizeTimeout = setTimeout(() => {
-            if (testimonialCards.length > 0) { // Solo si hay cards
-                updateTestimonialView(false);
-            }
+    if (testimonialPrevButton) {
+        testimonialPrevButton.addEventListener('click', () => {
+            const cardWidth = testimonialCards[0]?.offsetWidth || testimonialCarousel.clientWidth;
+            let targetScroll = testimonialCarousel.scrollLeft - cardWidth;
+            testimonialCarousel.scrollTo({ left: targetScroll, behavior: 'smooth' });
+        });
+    }
+    if (testimonialNextButton) {
+        testimonialNextButton.addEventListener('click', () => {
+            const cardWidth = testimonialCards[0]?.offsetWidth || testimonialCarousel.clientWidth;
+            let targetScroll = testimonialCarousel.scrollLeft + cardWidth;
+            testimonialCarousel.scrollTo({ left: targetScroll, behavior: 'smooth' });
+        });
+    }
+    
+    // Lógica para MODAL DE DETALLE DE TESTIMONIO
+    function openTestimonialDetailModal(index) {
+        if (index < 0 || index >= testimonialCards.length || !testimonialDetailModal) return;
+        
+        currentModalTestimonialIndex = index;
+        const card = testimonialCards[index];
+        const fullText = card.dataset.fullText;
+        const authorName = card.dataset.authorName;
+        const authorTitle = card.dataset.authorTitle;
+
+        modalTestimonialText.innerHTML = fullText.replace(/\n/g, '<br>');
+        modalAuthorName.textContent = authorName;
+        modalAuthorTitle.textContent = authorTitle;
+
+        modalPrevTestimonialButton.disabled = (index === 0);
+        modalNextTestimonialButton.disabled = (index === testimonialCards.length - 1);
+        
+        testimonialDetailModal.classList.remove('hidden');
+        setTimeout(() => {
+            testimonialDetailModal.classList.remove('opacity-0');
+            testimonialDetailModal.querySelector('.modal-content').classList.remove('scale-95');
+            testimonialDetailModal.querySelector('.modal-content').classList.remove('opacity-0');
+        }, 10);
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeTestimonialDetailModal() {
+        if (!testimonialDetailModal) return;
+        testimonialDetailModal.classList.add('opacity-0');
+        testimonialDetailModal.querySelector('.modal-content').classList.add('scale-95');
+        testimonialDetailModal.querySelector('.modal-content').classList.add('opacity-0');
+        setTimeout(() => {
+            testimonialDetailModal.classList.add('hidden');
+            document.body.style.overflow = '';
         }, 250);
-    });
+        currentModalTestimonialIndex = -1;
+    }
+
+    if (closeTestimonialModalButton) {
+        closeTestimonialModalButton.addEventListener('click', closeTestimonialDetailModal);
+    }
+
+    if (testimonialDetailModal) { // Cerrar al hacer clic fuera
+        testimonialDetailModal.addEventListener('click', (event) => {
+            if (event.target === testimonialDetailModal) {
+                closeTestimonialDetailModal();
+            }
+        });
+    }
     
-    if (testimonialCards.length > 0) { // Solo si hay cards
-        updateTestimonialView(false); // Initial call
-    } else { // Si no hay cards, ocultar controles
-         if (prevTestimonialButton) prevTestimonialButton.style.display = 'none';
-         if (nextTestimonialButton) nextTestimonialButton.style.display = 'none';
-         if (testimonialIndicatorsContainer) testimonialIndicatorsContainer.style.display = 'none';
+    if (modalPrevTestimonialButton) {
+        modalPrevTestimonialButton.addEventListener('click', () => {
+            if (currentModalTestimonialIndex > 0) {
+                openTestimonialDetailModal(currentModalTestimonialIndex - 1);
+                 // Sincronizar carrusel principal si se desea
+                 scrollToTestimonial(currentModalTestimonialIndex - 1); 
+            }
+        });
     }
-}
-// --- END Testimonial Carousel Logic (Principal) ---
-
-// --- START Testimonial Individual Modal Functions ---
-function loadTestimonialInModal(index) {
-    if (!testimonialsData[index] || !modalTestimonialText || !modalTestimonialAuthor || !modalTestimonialCompany) {
-         console.error("Error loading testimonial data or modal elements for index:", index);
-         return;
+    if (modalNextTestimonialButton) {
+        modalNextTestimonialButton.addEventListener('click', () => {
+            if (currentModalTestimonialIndex < testimonialCards.length - 1) {
+                openTestimonialDetailModal(currentModalTestimonialIndex + 1);
+                // Sincronizar carrusel principal si se desea
+                scrollToTestimonial(currentModalTestimonialIndex + 1);
+            }
+        });
     }
-
-    const testimonial = testimonialsData[index];
-    modalTestimonialText.textContent = testimonial.text;
-    modalTestimonialAuthor.textContent = testimonial.author;
-    modalTestimonialCompany.textContent = testimonial.company;
-
-    if (modalIndividualPrevButton) modalIndividualPrevButton.disabled = index === 0;
-    if (modalIndividualNextButton) modalIndividualNextButton.disabled = index >= testimonialsData.length - 1;
     
-    const modalContentArea = document.getElementById('testimonial-individual-modal-content');
-    if (modalContentArea) {
-        modalContentArea.scrollTop = 0;
-    }
-}
+    // Llamada inicial para configurar testimonios
+    setupTestimonialCarousel();
+    // ---- FIN LÓGICA TESTIMONIOS ----
 
-function openTestimonialIndividualModal(index) {
-    if (!testimonialIndividualModal) return;
-    if (index < 0 || index >= testimonialsData.length) {
-        console.error("Invalid index for opening testimonial modal:", index);
-        return;
-    }
-    currentTestimonialIndex = index; 
-    loadTestimonialInModal(index);
-    testimonialIndividualModal.classList.remove('hidden');
-    setTimeout(() => testimonialIndividualModal.classList.remove('opacity-0'), 10);
-    document.body.style.overflow = 'hidden';
-}
-
-function closeTestimonialIndividualModal() {
-    if (!testimonialIndividualModal) return;
-    testimonialIndividualModal.classList.add('opacity-0');
-    setTimeout(() => {
-        testimonialIndividualModal.classList.add('hidden');
-        document.body.style.overflow = '';
-    }, 300);
-}
-
-if (closeIndividualModalButton) {
-    closeIndividualModalButton.addEventListener('click', closeTestimonialIndividualModal);
-}
-if (testimonialIndividualModal) {
-     testimonialIndividualModal.addEventListener('click', (event) => {
-        if (event.target === testimonialIndividualModal) {
-            closeTestimonialIndividualModal();
-        }
-    });
-}
-
-if (modalIndividualNextButton) {
-    modalIndividualNextButton.addEventListener('click', () => {
-        if (currentTestimonialIndex < testimonialsData.length - 1) {
-            currentTestimonialIndex++;
-            loadTestimonialInModal(currentTestimonialIndex);
-            
-            if (testimonialCards.length > 0 && testimonialCards[currentTestimonialIndex]) {
-                 const mainCarouselCard = testimonialCards[currentTestimonialIndex];
-                 const carouselWidth = testimonialCarousel.offsetWidth;
-                 const cardLeft = mainCarouselCard.offsetLeft;
-                 const cardWidth = mainCarouselCard.offsetWidth;
-                 const paddingLeft = testimonialCarousel.paddingLeft ? parseFloat(getComputedStyle(testimonialCarousel).paddingLeft) : 0;
-                 const targetScrollLeft = cardLeft - (carouselWidth / 2) + (cardWidth / 2) - paddingLeft;
-                 testimonialCarousel.scrollTo({ left: targetScrollLeft, behavior: 'smooth' });
-                 updateTestimonialIndicators(); // Estas funciones ya están definidas en setupTestimonialCarousel
-                 updateTestimonialControls();   // y usan el currentTestimonialIndex global
+    // Cierre de TODOS los modales con tecla Escape
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+            const openProjectModal = document.querySelector('.modal:not(#testimonial-detail-modal):not(.hidden)');
+            if (testimonialDetailModal && !testimonialDetailModal.classList.contains('hidden')) {
+                closeTestimonialDetailModal();
+            } else if (openProjectModal) {
+                closeModal(openProjectModal);
             }
         }
     });
-}
 
-if (modalIndividualPrevButton) {
-    modalIndividualPrevButton.addEventListener('click', () => {
-        if (currentTestimonialIndex > 0) {
-            currentTestimonialIndex--;
-            loadTestimonialInModal(currentTestimonialIndex);
-             if (testimonialCards.length > 0 && testimonialCards[currentTestimonialIndex]) {
-                 const mainCarouselCard = testimonialCards[currentTestimonialIndex];
-                 const carouselWidth = testimonialCarousel.offsetWidth;
-                 const cardLeft = mainCarouselCard.offsetLeft;
-                 const cardWidth = mainCarouselCard.offsetWidth;
-                 const paddingLeft = testimonialCarousel.paddingLeft ? parseFloat(getComputedStyle(testimonialCarousel).paddingLeft) : 0;
-                 const targetScrollLeft = cardLeft - (carouselWidth / 2) + (cardWidth / 2) - paddingLeft;
-                 testimonialCarousel.scrollTo({ left: targetScrollLeft, behavior: 'smooth' });
-                 updateTestimonialIndicators();
-                 updateTestimonialControls();
-             }
-        }
-    });
-}
-
-document.addEventListener('keydown', (event) => {
-    if (!testimonialIndividualModal || testimonialIndividualModal.classList.contains('hidden')) return;
-    if (event.key === 'Escape') {
-        closeTestimonialIndividualModal();
-    }
-    if (event.key === 'ArrowRight') {
-        if (modalIndividualNextButton && !modalIndividualNextButton.disabled) {
-            modalIndividualNextButton.click();
-        }
-    }
-    if (event.key === 'ArrowLeft') {
-        if (modalIndividualPrevButton && !modalIndividualPrevButton.disabled) {
-            modalIndividualPrevButton.click();
-        }
-    }
-});
-// --- END Testimonial Individual Modal Functions ---
-
-// Initialize the main carousel
-// Esta llamada se hace aquí, dentro del DOMContentLoaded,
-// porque setupTestimonialCarousel y las funciones del modal ahora están definidas en este ámbito.
-setupTestimonialCarousel();
-});   
+}); // Fin del DOMContentLoaded
