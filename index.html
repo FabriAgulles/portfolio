@@ -32,6 +32,52 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- b) Colores para el Chatbot (Coherentes con la página) -->
+<style>
+  :root {
+    /* Color principal = Azul de la página */
+    --chat--color-primary: #007bff; /* Primary blue */
+    --chat--color-primary-shade-50: #006ed6; /* Slightly darker blue */
+    --chat--color-primary-shade-100: #005cb2; /* Even darker blue */
+ 
+    /* Color secundario = Un gris claro de la página */
+    --chat--color-secondary: #f8f9fa; /* lightgray */
+    --chat--color-secondary-shade-50: #e0e2e5; /* A shade of lightgray */
+ 
+    /* Fondo de mensajes del bot / Textos */
+    --chat--message--bot--background: #ffffff; /* Blanco para la burbuja del bot */
+    --chat--message--bot--color: #343a40;      /* darkgray */
+ 
+    /* Estilo del encabezado del chat */
+    --chat--header--background: #007bff;        /* Primary blue como fondo del encabezado */
+    --chat--header--color: #ffffff;             /* Texto blanco en el encabezado */
+ 
+    /* Mensaje de usuario: fondo Primary blue, texto blanco */
+    --chat--message--user--background: #007bff;
+    --chat--message--user--color: #ffffff;
+ 
+    /* AÑADE ESTAS DOS LÍNEAS AQUÍ para el color del texto y placeholder en el input */
+    --chat--input--color: #343a40; /* Color del texto que se escribe (darkgray de tu página) */
+    --chat--input--placeholder--color: #6c757d; /* Color del placeholder (secondary de tu página) */
+
+    /* Configuración de colores para asegurar la visibilidad del texto de entrada */
+    --chat--color-light: #f8f9fa;               /* Alineado con site's lightgray para fondos de UI claros */
+    --chat--color-light-shade-50: #e0e2e5;
+    --chat--color-light-shade-100: #c5c7ce;
+    --chat--color-medium: #6c757d;              /* Alineado con site's secondary para grises medios */
+    --chat--color-dark: #343a40;                /* Alineado con site's darkgray para textos oscuros */
+    --chat--color-disabled: #777980;            /* Mantener o ajustar si deseas un gris diferente */
+    --chat--color-typing: #404040;              /* Mantener o ajustar si deseas un gris diferente */
+ 
+    /* Configuración de diseño (opcional) */
+    --chat--spacing: 1rem;
+    --chat--border-radius: 0.25rem;
+    --chat--transition-duration: 0.15s;
+    --chat--window--width: 400px;
+    --chat--window--height: 600px;
+  }
+</style>
     
     <style>
         body {
