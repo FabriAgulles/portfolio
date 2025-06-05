@@ -747,6 +747,93 @@
             </div>
         </div>
     </div>    
+
+<!-- Contenedor del Chat -->
+<div id="n8n-chat"></div>
+<script type="module">
+
+  import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+ 
+  createChat({
+
+    // === a) Tu URL de Webhook de n8n ===
+
+    webhookUrl: 'http://localhost:5678/webhook/705b6b33-eaaa-49d0-aa90-cb0f0bd7be30/chat',
+ 
+    // === b) Apariencia ===
+
+    target: '#n8n-chat',
+
+    mode: 'window',            // “window” = Ventana de chat desplegable
+
+    showWelcomeScreen: true,   // Activar pantalla de bienvenida
+ 
+    // === c) Claves para el Payload ===
+
+    chatInputKey: 'chatInput',
+
+    chatSessionKey: 'sessionId',
+ 
+    // === d) Primeros mensajes (Saludos del Secretario) ===
+
+    initialMessages: [
+
+      '¡Hola! Soy Dosty el secretario personal de Fabricio.',
+
+      'Puedes consultarme sobre su perfil profesional,pedirme que le envie un correo o agende una reunión.',
+      
+      '¿En qué puedo asistirte hoy?'
+
+    ],
+ 
+    // === e) Textos de la UI (i18n) con argo del Secretario ===
+
+    defaultLanguage: 'es',  // Cambiado a español directamente
+
+    i18n: {
+
+      es: { // Ahora se define 'es' en lugar de sobrescribir 'en'
+
+        title: 'Agente IA de Fabricio',
+
+        subtitle: 'Consulta sobre mi perfil profesional, envíame un correo o agenda cita aquí.',
+
+        footer: 'Conectemos para impulsar tu próximo proyecto.',
+
+        getStarted: 'Iniciar nueva conversación',
+
+        inputPlaceholder: 'Consulta sobre mis habilidades, idiomas, etc...'
+
+      }
+
+    },
+ 
+    // === f) (Opcional) Metadatos para tu flujo de trabajo ===
+
+    metadata: {
+
+      context: 'Fabricio Agulles Portfolio',
+
+      role: 'Private Secretary AI'
+
+    },
+ 
+    // === g) Configuración del Webhook (Métodos HTTP, Cabeceras, etc.) ===
+
+    webhookConfig: {
+
+      method: 'POST',
+
+      headers: {
+
+        'Content-Type': 'application/json'
+
+      }
+
+    }
+
+  });
+</script>
     
 <script
     src="index.js" defer>
