@@ -187,6 +187,25 @@
 </head>
 <body class="antialiased">
 
+<!-- START: Promo Banner -->
+<div id="promo-banner" class="fixed top-0 left-0 w-full bg-yellow-400 text-black p-3 sm:p-4 shadow-md z-50 transition-all duration-500 ease-in-out overflow-hidden">
+    <div class="container mx-auto flex items-center justify-between"> <!-- Eliminado flex-wrap aquí para un control más directo -->
+        <!-- Contenedor para icono y texto -->
+        <div class="flex items-center flex-grow mr-2"> <!-- flex-grow aquí, y mr-2 para espaciar del botón X -->
+            <i class="fas fa-robot text-lg sm:text-xl text-primary mr-2 shrink-0"></i> <!-- shrink-0 para que el icono no se encoja -->
+            <div class="text-sm sm:text-base font-medium"> <!-- El texto puede envolverse aquí si es necesario -->
+                <span class="font-bold">¡Nuevo!</span> Chatea con mi Agente IA para consultar sobre mi perfil profesional, agendar una cita o enviarme un mail.
+            </div>
+        </div>
+        
+        <!-- Botón de Cierre (se mantiene a la derecha del todo) -->
+        <button id="close-promo-banner" aria-label="Cerrar banner promocional" class="text-black hover:text-gray-700 transition-colors duration-300 shrink-0 ml-auto"> <!-- shrink-0 y ml-auto -->
+            <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+    </div>
+</div>
+<!-- END: Promo Banner -->
+    
     <!-- Navegación Principal -->
     <nav class="bg-white/80 backdrop-blur-md shadow-md fixed w-full z-50 top-0">
         <div class="container mx-auto px-6 py-3">
@@ -880,6 +899,116 @@
     }
 
   });
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const promoBanner = document.getElementById('promo-banner');
+    const closePromoButton = document.getElementById('close-promo-banner');
+    const promoCtaButton = document.getElementById('promo-cta-button');
+    const mainNav = document.querySelector('nav.fixed'); // Selector más específico para tu nav principal
+    const body = document.body; // O el elemento principal que envuelve tu contenido si es más adecuado
+
+    const bannerStorageKey = 'promoBannerClosed';
+    let bannerHeight = 0;
+
+    function openChatbot() {
+        // Intenta hacer clic en el botón de apertura del chatbot de n8n si existe y está visible
+        // Esta es una suposición de cómo podría funcionar.
+        // El widget de n8n-chat se inicializa en #n8n-chat.
+        // El botón real de apertura del chat es interno al widget.
+        // Una forma más robusta sería que n8n-chat ofreciera una API para abrirlo.
+        // Por ahora, simplemente podemos guiar al usuario.
+        const n8nChatWidget = document.getElementById('n8n-chat');
+        if (n8nChatWidget) {
+            const openButton = n8nChatWidget.querySelector('button'); // Esto es una suposición
+            if (openButton) {
+                // openButton.click(); // Descomentar si se encuentra el botón correcto
+            }
+        }
+        // Si no podemos abrirlo programáticamente, al menos el usuario sabe que existe.
+        // Podrías hacer scroll hasta el botón flotante del chat si quisieras.
+        const floatingChatButton = document.getElementById('floating-cta-button'); // Este es tu botón "¿Charlamos?"
+        // El chat real es el que se inicializa en #n8n-chat
+        // El botón de n8n se genera dinámicamente, puede ser difícil de seleccionar de forma estable sin una API
+        console.log("Intentando guiar al usuario al chatbot...");
+        // Si el chat de n8n tiene un botón de apertura con un ID o clase predecible, úsalo.
+        // De lo contrario, la interacción del usuario con el icono del chat sigue siendo la principal forma de abrirlo.
+    }
+
+    function adjustLayoutForBanner() {
+        if (promoBanner && mainNav && getComputedStyle(promoBanner).display !== 'none' && !promoBanner.classList.contains('hidden-banner')) {
+            // Forzar reflow para obtener la altura correcta después de cualquier cambio de estilo
+            promoBanner.style.opacity = '1'; // Asegurar que sea visible para calcular altura
+            bannerHeight = promoBanner.offsetHeight;
+            body.style.paddingTop = `${bannerHeight}px`;
+            mainNav.style.top = `${bannerHeight}px`;
+        }
+    }
+
+    function closeAndRememberBanner() {
+        if (promoBanner && mainNav) {
+            promoBanner.classList.add('hidden-banner');
+            body.style.paddingTop = '0px';
+            mainNav.style.top = '0px'; // El nav vuelve a su posición original (top:0)
+            
+            try {
+                localStorage.setItem(bannerStorageKey, 'true');
+            } catch (e) {
+                console.warn('LocalStorage no disponible, el estado del banner no se recordará.');
+            }
+        }
+    }
+
+    if (closePromoButton) {
+        closePromoButton.addEventListener('click', closeAndRememberBanner);
+    }
+
+    if (promoCtaButton) {
+        promoCtaButton.addEventListener('click', () => {
+            openChatbot();
+            // Opcionalmente, cierra el banner después de hacer clic en el CTA
+            // closeAndRememberBanner(); 
+            // O simplemente déjalo abierto y que el usuario lo cierre manualmente.
+            // O que el chatbot al abrirse, lo cierre. Por ahora, solo abre el chat.
+            
+            // La forma más directa de "abrir" el chat n8n es que el usuario haga clic en su propio botón flotante.
+            // Si tu botón "¿Charlamos?" (#floating-cta-button) abre el chat, podrías simular un clic en él,
+            // pero eso es un poco hacky. El chat de n8n se abre con su propio icono.
+            // El CTA del banner puede ser más una invitación a buscar y usar el chat.
+        });
+    }
+    
+    // Inicialización
+    if (promoBanner && mainNav) {
+        try {
+            if (localStorage.getItem(bannerStorageKey) === 'true') {
+                promoBanner.style.display = 'none'; // Ocultar inmediatamente si ya fue cerrado
+                // No es necesario ajustar el padding/top si se oculta desde el inicio
+            } else {
+                // Asegurarse de que el banner esté visible antes de calcular su altura
+                promoBanner.style.display = 'flex'; // O el display que uses (block, flex, etc.)
+                // Esperar un ciclo de renderizado para que la altura sea correcta
+                requestAnimationFrame(adjustLayoutForBanner);
+            }
+        } catch (e) {
+            console.warn('LocalStorage no disponible, el banner se mostrará siempre.');
+            promoBanner.style.display = 'flex';
+            requestAnimationFrame(adjustLayoutForBanner);
+        }
+    }
+
+    // Reajustar en caso de resize, por si el banner cambia de altura (ej. por wrapping de texto)
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+            if (localStorage.getItem(bannerStorageKey) !== 'true' && promoBanner && getComputedStyle(promoBanner).display !== 'none' && !promoBanner.classList.contains('hidden-banner')) {
+                adjustLayoutForBanner();
+            }
+        }, 250); // Debounce
+    });
+});
 </script>
     
 <script
