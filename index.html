@@ -906,107 +906,84 @@ document.addEventListener('DOMContentLoaded', () => {
     const promoBanner = document.getElementById('promo-banner');
     const closePromoButton = document.getElementById('close-promo-banner');
     const promoCtaButton = document.getElementById('promo-cta-button');
-    const mainNav = document.querySelector('nav.fixed'); // Selector más específico para tu nav principal
-    const body = document.body; // O el elemento principal que envuelve tu contenido si es más adecuado
+    const mainNav = document.querySelector('nav.fixed');
+    const body = document.body;
 
-    const bannerStorageKey = 'promoBannerClosed';
     let bannerHeight = 0;
 
     function openChatbot() {
-        // Intenta hacer clic en el botón de apertura del chatbot de n8n si existe y está visible
-        // Esta es una suposición de cómo podría funcionar.
-        // El widget de n8n-chat se inicializa en #n8n-chat.
-        // El botón real de apertura del chat es interno al widget.
-        // Una forma más robusta sería que n8n-chat ofreciera una API para abrirlo.
-        // Por ahora, simplemente podemos guiar al usuario.
-        const n8nChatWidget = document.getElementById('n8n-chat');
-        if (n8nChatWidget) {
-            const openButton = n8nChatWidget.querySelector('button'); // Esto es una suposición
-            if (openButton) {
-                // openButton.click(); // Descomentar si se encuentra el botón correcto
-            }
+        const n8nChatContainer = document.getElementById('n8n-chat');
+        if (!n8nChatContainer) {
+            console.warn('Contenedor del chat de n8n (#n8n-chat) no encontrado.');
+            return;
         }
-        // Si no podemos abrirlo programáticamente, al menos el usuario sabe que existe.
-        // Podrías hacer scroll hasta el botón flotante del chat si quisieras.
-        const floatingChatButton = document.getElementById('floating-cta-button'); // Este es tu botón "¿Charlamos?"
-        // El chat real es el que se inicializa en #n8n-chat
-        // El botón de n8n se genera dinámicamente, puede ser difícil de seleccionar de forma estable sin una API
-        console.log("Intentando guiar al usuario al chatbot...");
-        // Si el chat de n8n tiene un botón de apertura con un ID o clase predecible, úsalo.
-        // De lo contrario, la interacción del usuario con el icono del chat sigue siendo la principal forma de abrirlo.
+        const openButton = n8nChatContainer.querySelector('.n8n-chat-trigger-button-container button');
+        
+        if (openButton) {
+            const widgetElement = n8nChatContainer.querySelector('.n8n-chat-widget');
+            if (widgetElement && !widgetElement.classList.contains('n8n-chat-widget--open')) {
+                openButton.click();
+            } else if (widgetElement && widgetElement.classList.contains('n8n-chat-widget--open')) {
+                console.log('El chat de n8n ya está abierto.');
+            } else {
+                 openButton.click(); 
+            }
+        } else {
+            console.warn('Botón de apertura del chat de n8n no encontrado. Abrir manualmente.');
+        }
     }
 
     function adjustLayoutForBanner() {
         if (promoBanner && mainNav && getComputedStyle(promoBanner).display !== 'none' && !promoBanner.classList.contains('hidden-banner')) {
-            // Forzar reflow para obtener la altura correcta después de cualquier cambio de estilo
-            promoBanner.style.opacity = '1'; // Asegurar que sea visible para calcular altura
+            promoBanner.style.opacity = '1';
             bannerHeight = promoBanner.offsetHeight;
             body.style.paddingTop = `${bannerHeight}px`;
             mainNav.style.top = `${bannerHeight}px`;
         }
     }
 
-    function closeAndRememberBanner() {
+    function hideBannerTemporarily() { // Cambiado el nombre de la función
         if (promoBanner && mainNav) {
             promoBanner.classList.add('hidden-banner');
             body.style.paddingTop = '0px';
-            mainNav.style.top = '0px'; // El nav vuelve a su posición original (top:0)
-            
-            try {
-                localStorage.setItem(bannerStorageKey, 'true');
-            } catch (e) {
-                console.warn('LocalStorage no disponible, el estado del banner no se recordará.');
-            }
+            mainNav.style.top = '0px';
+            // Ya NO guardamos en localStorage o sessionStorage
         }
     }
 
     if (closePromoButton) {
-        closePromoButton.addEventListener('click', closeAndRememberBanner);
+        // Al hacer clic en la X, solo ocultamos el banner temporalmente
+        closePromoButton.addEventListener('click', hideBannerTemporarily);
     }
 
     if (promoCtaButton) {
-        promoCtaButton.addEventListener('click', () => {
+        promoCtaButton.addEventListener('click', (event) => {
+            event.preventDefault();
             openChatbot();
-            // Opcionalmente, cierra el banner después de hacer clic en el CTA
-            // closeAndRememberBanner(); 
-            // O simplemente déjalo abierto y que el usuario lo cierre manualmente.
-            // O que el chatbot al abrirse, lo cierre. Por ahora, solo abre el chat.
-            
-            // La forma más directa de "abrir" el chat n8n es que el usuario haga clic en su propio botón flotante.
-            // Si tu botón "¿Charlamos?" (#floating-cta-button) abre el chat, podrías simular un clic en él,
-            // pero eso es un poco hacky. El chat de n8n se abre con su propio icono.
-            // El CTA del banner puede ser más una invitación a buscar y usar el chat.
         });
     }
-    
-    // Inicialización
+
+    // Inicialización: El banner SIEMPRE se intenta mostrar al cargar
     if (promoBanner && mainNav) {
-        try {
-            if (localStorage.getItem(bannerStorageKey) === 'true') {
-                promoBanner.style.display = 'none'; // Ocultar inmediatamente si ya fue cerrado
-                // No es necesario ajustar el padding/top si se oculta desde el inicio
-            } else {
-                // Asegurarse de que el banner esté visible antes de calcular su altura
-                promoBanner.style.display = 'flex'; // O el display que uses (block, flex, etc.)
-                // Esperar un ciclo de renderizado para que la altura sea correcta
-                requestAnimationFrame(adjustLayoutForBanner);
-            }
-        } catch (e) {
-            console.warn('LocalStorage no disponible, el banner se mostrará siempre.');
-            promoBanner.style.display = 'flex';
-            requestAnimationFrame(adjustLayoutForBanner);
-        }
+        // Asegurarse de que el banner esté visible antes de calcular su altura
+        // La clase 'hidden-banner' solo se añade al hacer clic en X, no persiste en la carga
+        promoBanner.style.display = 'flex'; // O el display que uses (block, flex, etc.)
+        promoBanner.classList.remove('hidden-banner'); // Asegurar que no esté oculto por una clase previa (aunque no debería)
+        
+        // Esperar un ciclo de renderizado para que la altura sea correcta
+        requestAnimationFrame(adjustLayoutForBanner);
     }
 
-    // Reajustar en caso de resize, por si el banner cambia de altura (ej. por wrapping de texto)
+    // Reajustar en caso de resize, por si el banner cambia de altura
     let resizeTimer;
     window.addEventListener('resize', () => {
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(() => {
-            if (localStorage.getItem(bannerStorageKey) !== 'true' && promoBanner && getComputedStyle(promoBanner).display !== 'none' && !promoBanner.classList.contains('hidden-banner')) {
+            // Solo ajustar si el banner no ha sido cerrado manualmente en esta sesión de vista
+            if (promoBanner && getComputedStyle(promoBanner).display !== 'none' && !promoBanner.classList.contains('hidden-banner')) {
                 adjustLayoutForBanner();
             }
-        }, 250); // Debounce
+        }, 250);
     });
 });
 </script>
