@@ -56,6 +56,13 @@
             transform: translateY(-5px);
             box-shadow: 0 12px 16px rgba(0, 0, 0, 0.2);
         }
+        .hover-lift {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .hover-lift:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 16px rgba(0, 0, 0, 0.15);
+        }
         /* Animations */
         .fade-in-section {
             opacity: 0;
@@ -203,33 +210,37 @@
 
     <!-- Sección Sobre Mí -->
     <section id="sobre-mi" class="py-16 section-bg fade-in-section">
-                    <!-- Título y Párrafo Principal Mejorados -->
-            <div class="bg-white shadow-xl rounded-xl p-8 md:p-12 max-w-4xl mx-auto mb-16">
+            <!-- Título y Párrafo Principal -->
+            <div class="container mx-auto px-6">
                 <h2 class="text-4xl md:text-5xl font-bold text-center text-primary mb-6">Tecnología, Estrategia y Ejecución</h2>
-                <p class="text-lg text-secondary text-center max-w-3xl mx-auto leading-relaxed">
+                <p class="text-lg text-secondary text-center max-w-3xl mx-auto leading-relaxed mb-12">
                     Soy Technical Project Manager con +6 años de experiencia liderando proyectos IT end-to-end y Founder de t2xLabs, agencia especializada en automatización e inteligencia artificial. He diseñado y desplegado agentes conversacionales de IA, pipelines RAG y sistemas de automatización para clientes en sectores como salud, legal/fiscal, deportes y tecnología. Mi enfoque combina gestión estratégica con capacidad técnica: no solo lidero equipos y gestiono stakeholders, sino que también diseño arquitecturas de solución y construyo los sistemas.
                 </p>
             </div>
             <!-- Aspectos Clave -->
             <h2 class="text-3xl font-bold text-center text-darkgray mb-4">Aspectos Clave</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-12 text-center" style="margin:40px">
-                <div class="p-6 bg-gray-100 rounded-lg shadow">
+            <!-- Row 1: 3 cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6 text-center px-4 md:px-10">
+                <div class="p-6 bg-gray-100 rounded-lg shadow hover-lift">
                     <i class="fas fa-briefcase text-3xl text-primary mb-3"></i>
                     <p class="font-semibold">+6 Años Liderando Proyectos IT</p>
                 </div>
-                <div class="p-6 bg-gray-100 rounded-lg shadow">
+                <div class="p-6 bg-gray-100 rounded-lg shadow hover-lift">
                     <i class="fas fa-rocket text-3xl text-primary mb-3"></i>
                     <p class="font-semibold">Founder de t2xLabs — Agencia de IA & Automatización</p>
                 </div>
-                <div class="p-6 bg-gray-100 rounded-lg shadow">
+                <div class="p-6 bg-gray-100 rounded-lg shadow hover-lift">
                     <i class="fas fa-robot text-3xl text-primary mb-3"></i>
                     <p class="font-semibold">Agentes de IA Conversacionales en Producción</p>
                 </div>
-                <div class="p-6 bg-gray-100 rounded-lg shadow lg:col-start-1 lg:col-end-2 lg:ml-auto lg:mr-0 sm:col-span-1" style="justify-self: end;">
+            </div>
+            <!-- Row 2: 2 centered cards matching top row width -->
+            <div class="flex flex-wrap justify-center gap-6 mb-12 text-center px-4 md:px-10">
+                <div class="p-6 bg-gray-100 rounded-lg shadow hover-lift w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]">
                     <i class="fas fa-users-cog text-3xl text-primary mb-3"></i>
                     <p class="font-semibold">Especialista en Metodologías Ágiles (Scrum, Kanban)</p>
                 </div>
-                <div class="p-6 bg-gray-100 rounded-lg shadow lg:col-start-2 lg:col-end-3 sm:col-span-1" style="justify-self: start;">
+                <div class="p-6 bg-gray-100 rounded-lg shadow hover-lift w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]">
                     <i class="fas fa-language text-3xl text-primary mb-3"></i>
                     <p class="font-semibold">Multilingüe: ES, EN (C1), DE (B1)</p>
                 </div>
@@ -399,11 +410,17 @@
     <section id="habilidades" class="py-16 section-bg fade-in-section">
         <div class="container mx-auto px-6">
             <h2 class="text-3xl font-bold text-center text-darkgray mb-12">Mis Herramientas y Habilidades</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Stack de IA & Automatización -->
-                <div class="p-6 bg-gray-50 rounded-lg shadow">
-                    <h3 class="text-xl font-semibold text-primary mb-4"><i class="fas fa-robot mr-2"></i>Stack de IA & Automatización</h3>
-                    <ul class="space-y-2 text-secondary">
+            <!-- Herramientas Grid: AI large left, 2 stacked right -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Left: Large AI Card -->
+                <div class="p-8 bg-gradient-to-b from-blue-50 to-white rounded-xl shadow border border-blue-100 lg:row-span-2 hover-lift">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-robot text-2xl text-primary"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-primary">Stack de IA & Automatización</h3>
+                    </div>
+                    <ul class="space-y-3 text-secondary">
                         <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> n8n (workflow automation)</li>
                         <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> OpenAI API / Anthropic API (LLMs)</li>
                         <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Qdrant, Pinecone (RAG / Vector DBs)</li>
@@ -413,9 +430,14 @@
                         <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Claude Code & MCP</li>
                     </ul>
                 </div>
-                <!-- Desarrollo & Infraestructura -->
-                <div class="p-6 bg-gray-50 rounded-lg shadow">
-                    <h3 class="text-xl font-semibold text-primary mb-4"><i class="fas fa-server mr-2"></i>Desarrollo & Infraestructura</h3>
+                <!-- Right top: Desarrollo & Infraestructura -->
+                <div class="p-6 bg-gray-50 rounded-xl shadow hover-lift">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 bg-gray-200 rounded-lg flex items-center justify-center mr-3">
+                            <i class="fas fa-server text-lg text-primary"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-primary">Desarrollo & Infraestructura</h3>
+                    </div>
                     <ul class="space-y-2 text-secondary">
                         <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Supabase (backend, auth, storage)</li>
                         <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Next.js, FastAPI (full-stack)</li>
@@ -424,9 +446,14 @@
                         <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Stripe (pagos & suscripciones)</li>
                     </ul>
                 </div>
-                <!-- Gestión de Proyectos -->
-                <div class="p-6 bg-gray-50 rounded-lg shadow">
-                    <h3 class="text-xl font-semibold text-primary mb-4"><i class="fas fa-tasks mr-2"></i>Gestión de Proyectos</h3>
+                <!-- Right bottom: Gestión de Proyectos -->
+                <div class="p-6 bg-gray-50 rounded-xl shadow hover-lift">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 bg-gray-200 rounded-lg flex items-center justify-center mr-3">
+                            <i class="fas fa-tasks text-lg text-primary"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-primary">Gestión de Proyectos</h3>
+                    </div>
                     <ul class="space-y-2 text-secondary">
                         <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Agile (Scrum, Kanban)</li>
                         <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Jira, Azure DevOps, Notion, Trello</li>
@@ -435,21 +462,21 @@
                         <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Documentación técnica y funcional</li>
                     </ul>
                 </div>
-                <!-- Habilidades Blandas -->
-                <div class="p-6 bg-gray-50 rounded-lg shadow">
-                    <h3 class="text-xl font-semibold text-primary mb-4"><i class="fas fa-users mr-2"></i>Habilidades Blandas</h3>
-                    <ul class="space-y-2 text-secondary">
-                        <li class="flex items-center"><i class="fas fa-users text-green-500 mr-2"></i> Liderazgo de Equipos</li>
-                        <li class="flex items-center"><i class="fas fa-comments text-green-500 mr-2"></i> Comunicación Efectiva</li>
-                        <li class="flex items-center"><i class="fas fa-hands-helping text-green-500 mr-2"></i> Gestión de Stakeholders</li>
-                        <li class="flex items-center"><i class="fas fa-lightbulb text-green-500 mr-2"></i> Resolución de Problemas</li>
-                        <li class="flex items-center"><i class="fas fa-chess-king text-green-500 mr-2"></i> Pensamiento Estratégico</li>
-                        <li class="flex items-center"><i class="fas fa-handshake text-green-500 mr-2"></i> Negociación</li>
-                        <li class="flex items-center"><i class="fas fa-cogs text-green-500 mr-2"></i> Adaptabilidad</li>
-                    </ul>
+            </div>
+            <!-- Habilidades Blandas as horizontal pills -->
+            <div class="mt-8 p-6 bg-gray-50 rounded-xl shadow hover-lift">
+                <h3 class="text-xl font-semibold text-primary mb-4 text-center"><i class="fas fa-users mr-2"></i>Habilidades Blandas</h3>
+                <div class="flex flex-wrap justify-center gap-3">
+                    <span class="inline-flex items-center bg-white border border-gray-200 text-secondary px-4 py-2 rounded-full shadow-sm"><i class="fas fa-users text-primary mr-2"></i>Liderazgo de Equipos</span>
+                    <span class="inline-flex items-center bg-white border border-gray-200 text-secondary px-4 py-2 rounded-full shadow-sm"><i class="fas fa-comments text-primary mr-2"></i>Comunicación Efectiva</span>
+                    <span class="inline-flex items-center bg-white border border-gray-200 text-secondary px-4 py-2 rounded-full shadow-sm"><i class="fas fa-hands-helping text-primary mr-2"></i>Gestión de Stakeholders</span>
+                    <span class="inline-flex items-center bg-white border border-gray-200 text-secondary px-4 py-2 rounded-full shadow-sm"><i class="fas fa-lightbulb text-primary mr-2"></i>Resolución de Problemas</span>
+                    <span class="inline-flex items-center bg-white border border-gray-200 text-secondary px-4 py-2 rounded-full shadow-sm"><i class="fas fa-chess-king text-primary mr-2"></i>Pensamiento Estratégico</span>
+                    <span class="inline-flex items-center bg-white border border-gray-200 text-secondary px-4 py-2 rounded-full shadow-sm"><i class="fas fa-handshake text-primary mr-2"></i>Negociación</span>
+                    <span class="inline-flex items-center bg-white border border-gray-200 text-secondary px-4 py-2 rounded-full shadow-sm"><i class="fas fa-cogs text-primary mr-2"></i>Adaptabilidad</span>
                 </div>
             </div>
-             <div class="mt-12 p-6 bg-gray-50 rounded-lg shadow">
+             <div class="mt-12 p-6 bg-gray-50 rounded-lg shadow hover-lift">
                 <h3 class="text-xl font-semibold text-primary mb-4 text-center">Idiomas</h3>
                 <div class="flex flex-wrap justify-center items-center gap-4 sm:gap-8">
                     <div class="flex items-center text-secondary">
@@ -469,7 +496,7 @@
     <!-- Sección Experiencia Profesional -->
     <section id="experiencia" class="py-16 lightgray fade-in-section">
         <div class="container mx-auto px-6">
-            <h2 class="text-3xl font-bold text-center text-darkgray mb-12">Mi Trayectoria Profesional como PM</h2>
+            <h2 class="text-3xl font-bold text-center text-darkgray mb-12">Mi Trayectoria Profesional en IT</h2>
             <div class="relative">
                 <!-- Línea de tiempo vertical -->
                 <div class="border-l-2 border-primary absolute h-full top-0 left-1/2 transform -translate-x-1/2 md:left-1/2 md:transform-none z-10"></div>
@@ -573,33 +600,52 @@
     <section id="educacion" class="py-16 section-bg fade-in-section">
         <div class="container mx-auto px-6">
             <h2 class="text-3xl font-bold text-center text-darkgray mb-12">Formación Académica</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="card p-6">
-                    <h3 class="text-xl font-semibold text-primary mb-3">Educación Universitaria</h3>
-                    <div class="mb-4">
-                        <p class="font-medium text-darkgray">Administrador de Empresas (Graduado)</p>
-                        <p class="text-secondary text-sm">Universidad Nacional de Cuyo (2017-2020)</p>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Left: Large Certificaciones Card -->
+                <div class="p-8 bg-gradient-to-br from-blue-50 to-white rounded-xl shadow-lg border border-blue-100 hover-lift">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-award text-2xl text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-primary">Certificaciones y Cursos</h3>
                     </div>
-                    <div>
-                        <p class="font-medium text-darkgray">Ingeniería en Informática (Estudios)</p>
-                        <p class="text-secondary text-sm">Universidad de Mendoza (2014-2015)</p>
-                    </div>
-                </div>
-                <div class="card p-6">
-                    <h3 class="text-xl font-semibold text-primary mb-3">Certificaciones y Cursos</h3>
-                    <ul class="space-y-2 text-secondary text-sm">
-                        <li><i class="fas fa-award text-yellow-500 mr-2"></i> Claude Code Software Development — Anthropic (2026)</li>
-                        <li><i class="fas fa-award text-yellow-500 mr-2"></i> Google Professional Project Management Certification — Google</li>
-                        <li><i class="fas fa-graduation-cap text-gray-500 mr-2"></i> RAG Agents: Build Apps & GPTs with APIs/MCP, LangChain & n8n — Udemy (2025)</li>
-                        <li><i class="fas fa-graduation-cap text-gray-500 mr-2"></i> Desarrollo con IA — BIG School (2025)</li>
-                        <li><i class="fas fa-graduation-cap text-gray-500 mr-2"></i> AI Automation: Build LLM Apps & AI Agents with n8n & APIs — Udemy (2025)</li>
-                        <li><i class="fas fa-graduation-cap text-gray-500 mr-2"></i> n8n Agentes de IA & Automatización de Procesos — Udemy (2025)</li>
-                        <li><i class="fas fa-graduation-cap text-gray-500 mr-2"></i> Inteligencia Artificial: ChatGPT, DALL-E y Hugging Face — Platzi (2023)</li>
-                        <li><i class="fas fa-graduation-cap text-gray-500 mr-2"></i> Agile Methodologies — Coder House</li>
-                        <li><i class="fas fa-graduation-cap text-gray-500 mr-2"></i> Project Management — Udemy</li>
-                        <li><i class="fas fa-graduation-cap text-gray-500 mr-2"></i> Leadership and Team Management — Udemy</li>
-                        <li><i class="fas fa-graduation-cap text-gray-500 mr-2"></i> Requirement Engineering — Udemy</li>
+                    <!-- Certificaciones destacadas -->
+                    <ul class="space-y-3 text-secondary text-sm">
+                        <li class="flex items-start"><i class="fas fa-award text-yellow-500 mr-2 mt-0.5"></i> Claude Code Software Development — Anthropic (2026)</li>
+                        <li class="flex items-start"><i class="fas fa-award text-yellow-500 mr-2 mt-0.5"></i> Google Professional Project Management Certification — Google</li>
                     </ul>
+                    <hr class="my-4 border-gray-200">
+                    <!-- Cursos -->
+                    <ul class="space-y-3 text-secondary text-sm">
+                        <li class="flex items-start"><i class="fas fa-graduation-cap text-gray-500 mr-2 mt-0.5"></i> RAG Agents: Build Apps & GPTs with APIs/MCP, LangChain & n8n — Udemy (2025)</li>
+                        <li class="flex items-start"><i class="fas fa-graduation-cap text-gray-500 mr-2 mt-0.5"></i> Desarrollo con IA — BIG School (2025)</li>
+                        <li class="flex items-start"><i class="fas fa-graduation-cap text-gray-500 mr-2 mt-0.5"></i> AI Automation: Build LLM Apps & AI Agents with n8n & APIs — Udemy (2025)</li>
+                        <li class="flex items-start"><i class="fas fa-graduation-cap text-gray-500 mr-2 mt-0.5"></i> n8n Agentes de IA & Automatización de Procesos — Udemy (2025)</li>
+                        <li class="flex items-start"><i class="fas fa-graduation-cap text-gray-500 mr-2 mt-0.5"></i> Inteligencia Artificial: ChatGPT, DALL-E y Hugging Face — Platzi (2023)</li>
+                        <li class="flex items-start"><i class="fas fa-graduation-cap text-gray-500 mr-2 mt-0.5"></i> Agile Methodologies — Coder House</li>
+                        <li class="flex items-start"><i class="fas fa-graduation-cap text-gray-500 mr-2 mt-0.5"></i> Project Management — Udemy</li>
+                        <li class="flex items-start"><i class="fas fa-graduation-cap text-gray-500 mr-2 mt-0.5"></i> Leadership and Team Management — Udemy</li>
+                        <li class="flex items-start"><i class="fas fa-graduation-cap text-gray-500 mr-2 mt-0.5"></i> Requirement Engineering — Udemy</li>
+                    </ul>
+                </div>
+                <!-- Right: Educación Universitaria -->
+                <div class="p-6 py-8 bg-gray-50 rounded-xl shadow-lg border border-gray-100 hover-lift">
+                    <div class="flex items-center mb-6">
+                        <div class="w-10 h-10 bg-gray-700 rounded-lg flex items-center justify-center mr-3">
+                            <i class="fas fa-university text-lg text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-primary">Educación Universitaria</h3>
+                    </div>
+                    <div class="space-y-6">
+                        <div>
+                            <p class="font-medium text-darkgray">Administrador de Empresas (Graduado)</p>
+                            <p class="text-secondary text-sm mt-1">Universidad Nacional de Cuyo (2017-2020)</p>
+                        </div>
+                        <div>
+                            <p class="font-medium text-darkgray">Ingeniería en Informática (Estudios)</p>
+                            <p class="text-secondary text-sm mt-1">Universidad de Mendoza (2014-2015)</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
