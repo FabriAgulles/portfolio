@@ -210,45 +210,106 @@
 
     <!-- Sección Sobre Mí -->
     <section id="sobre-mi" class="py-16 section-bg fade-in-section">
-            <!-- Título y Párrafo Principal -->
-            <div class="container mx-auto px-6">
-                <h2 class="text-4xl md:text-5xl font-bold text-center text-primary mb-6">Tecnología, Estrategia y Ejecución</h2>
-                <p class="text-lg text-secondary text-center max-w-3xl mx-auto leading-relaxed mb-12">
-                    Soy Technical Project Manager con +6 años de experiencia liderando proyectos IT end-to-end y Founder de t2xLabs, agencia especializada en automatización e inteligencia artificial. He diseñado y desplegado agentes conversacionales de IA, pipelines RAG y sistemas de automatización para clientes en sectores como salud, legal/fiscal, deportes y tecnología. Mi enfoque combina gestión estratégica con capacidad técnica: no solo lidero equipos y gestiono stakeholders, sino que también diseño arquitecturas de solución y construyo los sistemas.
-                </p>
+        <div class="container mx-auto px-6">
+            <!-- 2 columns: text left, metrics right -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12">
+
+                <!-- LEFT: Text column -->
+                <div>
+                    <p class="text-sm font-semibold text-primary uppercase tracking-widest mb-3">Sobre Mí</p>
+                    <h2 class="text-4xl md:text-5xl font-bold text-darkgray mb-6">Tecnología, Estrategia y Ejecución</h2>
+                    <p class="text-lg text-secondary leading-relaxed mb-4">
+                        Soy Technical Project Manager con +6 años de experiencia liderando proyectos IT end-to-end y Founder de t2xLabs, agencia especializada en automatización e inteligencia artificial. He diseñado y desplegado agentes conversacionales de IA, pipelines RAG y sistemas de automatización para clientes en sectores como salud, legal/fiscal, deportes y tecnología.
+                    </p>
+                    <p class="text-lg text-secondary leading-relaxed mb-6">
+                        Mi enfoque combina gestión estratégica con capacidad técnica: no solo lidero equipos y gestiono stakeholders, sino que también diseño arquitecturas de solución y construyo los sistemas.
+                    </p>
+                    <!-- Tags/pills -->
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-blue-50 text-primary text-sm px-3 py-1 rounded-full">Agentes de IA</span>
+                        <span class="bg-blue-50 text-primary text-sm px-3 py-1 rounded-full">WhatsApp Business</span>
+                        <span class="bg-blue-50 text-primary text-sm px-3 py-1 rounded-full">n8n</span>
+                        <span class="bg-blue-50 text-primary text-sm px-3 py-1 rounded-full">RAG Pipelines</span>
+                        <span class="bg-blue-50 text-primary text-sm px-3 py-1 rounded-full">Scrum</span>
+                        <span class="bg-blue-50 text-primary text-sm px-3 py-1 rounded-full">LLMs</span>
+                    </div>
+                </div>
+
+                <!-- RIGHT: 4 metric cards stacked -->
+                <div class="space-y-4">
+                    <div class="bg-gradient-to-r from-blue-50 to-white rounded-xl border border-blue-100 shadow-sm p-5 hover-lift flex items-center gap-4">
+                        <div class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-briefcase text-white text-lg"></i>
+                        </div>
+                        <div>
+                            <p class="text-2xl font-bold text-darkgray">+6 años</p>
+                            <p class="text-sm text-secondary">Liderando proyectos IT end-to-end con metodologías ágiles</p>
+                        </div>
+                    </div>
+                    <div class="bg-gradient-to-r from-blue-50 to-white rounded-xl border border-blue-100 shadow-sm p-5 hover-lift flex items-center gap-4">
+                        <div class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-robot text-white text-lg"></i>
+                        </div>
+                        <div>
+                            <p class="text-2xl font-bold text-darkgray">+10 proyectos</p>
+                            <p class="text-sm text-secondary">Agentes de IA, plataformas web y sistemas de automatización entregados</p>
+                        </div>
+                    </div>
+                    <div class="bg-gradient-to-r from-blue-50 to-white rounded-xl border border-blue-100 shadow-sm p-5 hover-lift flex items-center gap-4">
+                        <div class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-comments text-white text-lg"></i>
+                        </div>
+                        <div>
+                            <p class="text-2xl font-bold text-darkgray">+5.000</p>
+                            <p class="text-sm text-secondary">Conversaciones gestionadas por agentes de IA en producción</p>
+                        </div>
+                    </div>
+                    <div class="bg-gradient-to-r from-blue-50 to-white rounded-xl border border-blue-100 shadow-sm p-5 hover-lift flex items-center gap-4">
+                        <div class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-globe text-white text-lg"></i>
+                        </div>
+                        <div>
+                            <p class="text-2xl font-bold text-darkgray">3 países</p>
+                            <p class="text-sm text-secondary">Clientes en España, Alemania y Argentina</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <!-- Aspectos Clave -->
-            <h2 class="text-3xl font-bold text-center text-darkgray mb-4">Aspectos Clave</h2>
-            <!-- Row 1: 3 cards -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6 text-center px-4 md:px-10">
-                <div class="p-6 bg-gray-100 rounded-lg shadow hover-lift">
-                    <i class="fas fa-briefcase text-3xl text-primary mb-3"></i>
-                    <p class="font-semibold">+6 Años Liderando Proyectos IT</p>
+
+            <!-- BOTTOM: Compact aspects row -->
+            <div class="border-t border-gray-200 pt-8">
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 text-center">
+                    <div>
+                        <div class="w-10 h-10 bg-blue-50 rounded-lg mx-auto mb-2 flex items-center justify-center">
+                            <i class="fas fa-briefcase text-primary"></i>
+                        </div>
+                        <p class="text-sm font-medium text-darkgray">+6 Años en IT</p>
+                    </div>
+                    <div>
+                        <div class="w-10 h-10 bg-blue-50 rounded-lg mx-auto mb-2 flex items-center justify-center">
+                            <i class="fas fa-rocket text-primary"></i>
+                        </div>
+                        <p class="text-sm font-medium text-darkgray">Founder t2xLabs</p>
+                    </div>
+                    <div>
+                        <div class="w-10 h-10 bg-blue-50 rounded-lg mx-auto mb-2 flex items-center justify-center">
+                            <i class="fas fa-robot text-primary"></i>
+                        </div>
+                        <p class="text-sm font-medium text-darkgray">Agentes de IA</p>
+                    </div>
+                    <div>
+                        <div class="w-10 h-10 bg-blue-50 rounded-lg mx-auto mb-2 flex items-center justify-center">
+                            <i class="fas fa-users-cog text-primary"></i>
+                        </div>
+                        <p class="text-sm font-medium text-darkgray">Scrum & Kanban</p>
+                    </div>
+                    <div>
+                        <div class="w-10 h-10 bg-blue-50 rounded-lg mx-auto mb-2 flex items-center justify-center">
+                            <i class="fas fa-language text-primary"></i>
+                        </div>
+                        <p class="text-sm font-medium text-darkgray">ES · EN · DE</p>
+                    </div>
                 </div>
-                <div class="p-6 bg-gray-100 rounded-lg shadow hover-lift">
-                    <i class="fas fa-rocket text-3xl text-primary mb-3"></i>
-                    <p class="font-semibold">Founder de t2xLabs — Agencia de IA & Automatización</p>
-                </div>
-                <div class="p-6 bg-gray-100 rounded-lg shadow hover-lift">
-                    <i class="fas fa-robot text-3xl text-primary mb-3"></i>
-                    <p class="font-semibold">Agentes de IA Conversacionales en Producción</p>
-                </div>
-            </div>
-            <!-- Row 2: 2 centered cards matching top row width -->
-            <div class="flex flex-wrap justify-center gap-6 mb-12 text-center px-4 md:px-10">
-                <div class="p-6 bg-gray-100 rounded-lg shadow hover-lift w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]">
-                    <i class="fas fa-users-cog text-3xl text-primary mb-3"></i>
-                    <p class="font-semibold">Especialista en Metodologías Ágiles (Scrum, Kanban)</p>
-                </div>
-                <div class="p-6 bg-gray-100 rounded-lg shadow hover-lift w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]">
-                    <i class="fas fa-language text-3xl text-primary mb-3"></i>
-                    <p class="font-semibold">Multilingüe: ES, EN (C1), DE (B1)</p>
-                </div>
-            </div>
-            <div class="container mx-auto px-6">
-                <p class="text-lg italic text-center text-secondary max-w-2xl mx-auto">
-                "He gestionado productos de IA, plataformas web, apps móviles y agentes conversacionales que operan en producción atendiendo miles de interacciones. Mi stack incluye n8n, WhatsApp Business API, LLMs (OpenAI, Anthropic), bases de datos vectoriales (Qdrant, Pinecone), Redis, Supabase y herramientas de despliegue en Railway y Hetzner."
-                </p>
             </div>
         </div>
     </section>
