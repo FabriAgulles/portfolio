@@ -6,13 +6,16 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build:css": "tailwindcss -i ./src/input.css -o ./assets/tailwind.css --minify",
+    "watch:css": "tailwindcss -i ./src/input.css -o ./assets/tailwind.css --watch"
   },
   "dependencies": {
 
   },
   "devDependencies": {
     "@types/node": "^22.14.0",
+    "tailwindcss": "^3.4.17",
     "typescript": "~5.7.2",
     "vite": "^6.2.0"
   }
