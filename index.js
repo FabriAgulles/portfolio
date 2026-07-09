@@ -1,4 +1,70 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // ---- Typewriter del hero sincronizado con el video ----
+    const heroParagraph = document.getElementById('hero-description');
+    const heroVideo = document.getElementById('hero-video');
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (heroParagraph && !prefersReducedMotion) {
+        const fullText = heroParagraph.textContent.trim();
+        // El texto completo queda accesible para lectores de pantalla desde el inicio
+        heroParagraph.setAttribute('aria-label', fullText);
+
+        // Placeholder invisible con el texto completo: reserva la altura final
+        // del párrafo para que el tipeo no produzca saltos de layout (CLS)
+        const placeholder = document.createElement('span');
+        placeholder.className = 'invisible';
+        placeholder.setAttribute('aria-hidden', 'true');
+        placeholder.textContent = fullText;
+
+        const typedLayer = document.createElement('span');
+        typedLayer.className = 'absolute inset-0';
+        typedLayer.setAttribute('aria-hidden', 'true');
+
+        const typedText = document.createElement('span');
+        const cursor = document.createElement('span');
+        cursor.className = 'typing-cursor';
+        typedLayer.appendChild(typedText);
+        typedLayer.appendChild(cursor);
+
+        heroParagraph.classList.add('relative');
+        heroParagraph.textContent = '';
+        heroParagraph.appendChild(placeholder);
+        heroParagraph.appendChild(typedLayer);
+
+        let charIndex = 0;
+        let typingStarted = false;
+
+        function typeNextChar() {
+            charIndex++;
+            typedText.textContent = fullText.slice(0, charIndex);
+            if (charIndex < fullText.length) {
+                // Cadencia humana: velocidad variable y pausas tras puntuación
+                const lastChar = fullText[charIndex - 1];
+                let delay = 28 + Math.random() * 40;
+                if (lastChar === '.' || lastChar === ',') delay += 250;
+                setTimeout(typeNextChar, delay);
+            } else {
+                // Al terminar, el cursor parpadea un momento y desaparece
+                setTimeout(() => cursor.remove(), 3000);
+            }
+        }
+
+        function startTyping() {
+            if (typingStarted) return;
+            typingStarted = true;
+            setTimeout(typeNextChar, 500);
+        }
+
+        if (heroVideo) {
+            heroVideo.addEventListener('playing', startTyping, { once: true });
+            // Fallback: si el autoplay está bloqueado (ej. modo bajo consumo), tipear igual
+            setTimeout(startTyping, 1500);
+        } else {
+            startTyping();
+        }
+    }
+    // ---- Fin Typewriter ----
+
     // Menú móvil
     const menuButton = document.getElementById('menu-button');
     const mobileMenu = document.getElementById('mobile-menu');
