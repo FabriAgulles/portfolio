@@ -26,7 +26,7 @@
 
         // Sobre Mí
         'about.title': 'Technology, Strategy & Execution',
-        'about.p1': "I'm a Technical Project Manager with 6+ years of experience leading multidisciplinary teams of up to 60 people on end-to-end IT projects, and Founder of t2xLabs, an agency specialized in automation and artificial intelligence. I've designed and deployed conversational AI agents, RAG pipelines and automation systems for clients in industries such as healthcare, tax, banking, politics and logistics.",
+        'about.p1': "I'm a Technical Project Manager with 6+ years leading multidisciplinary teams of up to 60 people on end-to-end IT projects, and Founder of t2xLabs, an automation and AI agency. I've designed and deployed conversational agents, RAG pipelines and automation systems for clients in healthcare, tax, banking, politics and logistics.",
         'about.p2': "My approach combines strategic management with hands-on technical capability: I don't just lead teams and manage stakeholders — I also design solution architectures and build the systems.",
         'about.pill.agents': 'AI Agents',
         'about.m1.title': '6+ years',
@@ -41,18 +41,18 @@
 
         // Servicios
         'services.title': 'Services for Your Business',
-        'services.subtitle': 'AI and automation solutions that deliver measurable results',
+        'services.subtitle': 'AI agents and automations in production, with measurable results.',
         'services.c1.title': 'AI Agents on WhatsApp',
-        'services.c1.desc': 'Design and development of intelligent conversational agents on the WhatsApp Business API. 24/7 customer support, appointment management, data collection and smart escalation with CRM and calendar integrations.',
+        'services.c1.desc': 'Agents that serve customers 24/7 on WhatsApp: inquiries, appointments and human escalation, integrated with your CRM.',
         'services.c2.title': 'Process Automation with n8n',
-        'services.c2.desc': 'End-to-end business process automation: from internal workflows to complex integrations between platforms. Reduce manual tasks, errors and response times with intelligent flows.',
+        'services.c2.desc': 'I automate end-to-end processes with n8n: fewer manual tasks, fewer errors and faster responses.',
         'services.c3.title': 'Technical AI Consulting',
-        'services.c3.desc': 'Guidance to integrate artificial intelligence into your operations. Feasibility assessment, architecture design, model selection and hands-on implementation support.',
+        'services.c3.desc': 'I assess feasibility, design the architecture and stay with you until AI works in your operation.',
         'services.cta': "Let's talk about your project",
 
         // Proyectos
         'projects.title': 'Selected Featured Projects',
-        'projects.subtitle': "A glimpse of how I've helped companies achieve their goals through digitalization and project management.",
+        'projects.subtitle': 'AI agents and automations in production, with measurable results.',
         'projects.viewDetails': 'View Details',
         'projects.p1.title': 'KanzleiMate AI — Tax AI Agent',
         'projects.p1.meta': 't2xLabs | Legal/Tax Sector | 2025',
@@ -128,8 +128,8 @@
         'test.next': 'Next',
 
         // Contacto
-        'contact.title': "Let's Connect and Build Something Amazing!",
-        'contact.subtitle': "I'm excited to hear about new challenges and explore how my experience can add value to your business goals. Don't hesitate to reach out.",
+        'contact.title': 'Shall we talk about your project?',
+        'contact.subtitle': "Tell me your challenge and I'll propose how to solve it with AI and automation.",
         'contact.cta': 'Book a 20-min call',
         'contact.ctaNote': 'Free, no strings attached · Via Cal.com',
         'contact.location': 'Mendoza, Argentina · Remote &nbsp;|&nbsp; t2xLabs: Tarragona, Spain',
