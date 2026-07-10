@@ -19,7 +19,8 @@
 
         // Hero
         'hero.location': 'Mendoza, Argentina · Remote',
-        'hero.description': 'I build conversational AI agents and end-to-end automations that transform how companies operate. With 6+ years leading IT projects and agile methodologies, I founded t2xLabs to help organizations scale with artificial intelligence, reduce operating costs and automate business processes.',
+        'hero.tagline': 'AI agents & automation that transform your operations',
+        'hero.description': 'I build conversational AI agents and end-to-end automations. With 6+ years leading IT projects, I founded t2xLabs to help companies scale with artificial intelligence and cut operating costs.',
         'hero.cta.projects': 'View My Projects',
         'hero.cta.call': 'Book a Call',
 
@@ -129,7 +130,8 @@
         // Contacto
         'contact.title': "Let's Connect and Build Something Amazing!",
         'contact.subtitle': "I'm excited to hear about new challenges and explore how my experience can add value to your business goals. Don't hesitate to reach out.",
-        'contact.agenda': 'Schedule',
+        'contact.cta': 'Book a 20-min call',
+        'contact.ctaNote': 'Free, no strings attached · Via Cal.com',
         'contact.location': 'Mendoza, Argentina · Remote &nbsp;|&nbsp; t2xLabs: Tarragona, Spain',
         'contact.phones': '+54 261 534 5320 (Argentina) &nbsp;·&nbsp; +34 634 203 081 (Spain)',
 

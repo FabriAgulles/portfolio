@@ -7,7 +7,8 @@ module.exports = {
         sans: ['Poppins', 'sans-serif'],
       },
       colors: {
-        primary: '#007bff',
+        // #0069d9 da 5.2:1 sobre blanco (AA para texto normal); #007bff solo daba 3.98:1
+        primary: '#0069d9',
         primarydark: '#0056b3',
         secondary: '#6c757d',
         lightgray: '#f8f9fa',
