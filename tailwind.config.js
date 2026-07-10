@@ -4,7 +4,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Poppins', 'sans-serif'],
+        sans: ['Figtree', 'sans-serif'],
+        display: ['Sora', 'sans-serif'],
       },
       colors: {
         // #0069d9 da 5.2:1 sobre blanco (AA para texto normal); #007bff solo daba 3.98:1
