@@ -35,6 +35,9 @@ document.addEventListener('DOMContentLoaded', () => {
         let typingStarted = false;
 
         function typeNextChar() {
+            // Si el usuario cambió de idioma, i18n reemplazó el contenido del
+            // párrafo y estos nodos quedaron desconectados: cortar el tipeo.
+            if (!typedLayer.isConnected) return;
             charIndex++;
             typedText.textContent = fullText.slice(0, charIndex);
             if (charIndex < fullText.length) {
@@ -206,6 +209,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const MAX_LINES_EXCERPT = 4;
     const AVG_CHARS_PER_LINE_ESTIMATE = 70; // Ajustar según sea necesario
 
+    // Texto del testimonio según el idioma activo (data-full-text-en solo
+    // existe en los testimonios originalmente en español)
+    function getCardText(card) {
+        if (window.i18n && window.i18n.lang === 'en' && card.dataset.fullTextEn) {
+            return card.dataset.fullTextEn;
+        }
+        return card.dataset.fullText;
+    }
+
     function truncateTextForCard(textElement, fullText, maxLines, avgCharsPerLine) {
         if (!textElement || !fullText) return;
 
@@ -241,8 +253,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         testimonialCards.forEach((card, index) => {
             const excerptElement = card.querySelector('.testimonial-excerpt');
-            const fullText = card.dataset.fullText;
-            truncateTextForCard(excerptElement, fullText, MAX_LINES_EXCERPT, AVG_CHARS_PER_LINE_ESTIMATE);
+            truncateTextForCard(excerptElement, getCardText(card), MAX_LINES_EXCERPT, AVG_CHARS_PER_LINE_ESTIMATE);
 
             // Event listener para "Leer más..."
             const readMoreButton = card.querySelector('.open-testimonial-modal-button');
@@ -354,7 +365,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         currentModalTestimonialIndex = index;
         const card = testimonialCards[index];
-        const fullText = card.dataset.fullText;
+        const fullText = getCardText(card);
         const authorName = card.dataset.authorName;
         const authorTitle = card.dataset.authorTitle;
 
@@ -419,6 +430,17 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Llamada inicial para configurar testimonios
     setupTestimonialCarousel();
+
+    // Al cambiar de idioma, regenerar excerpts y refrescar el modal si está abierto
+    document.addEventListener('langchange', () => {
+        testimonialCards.forEach((card) => {
+            const excerptElement = card.querySelector('.testimonial-excerpt');
+            truncateTextForCard(excerptElement, getCardText(card), MAX_LINES_EXCERPT, AVG_CHARS_PER_LINE_ESTIMATE);
+        });
+        if (currentModalTestimonialIndex >= 0) {
+            openTestimonialDetailModal(currentModalTestimonialIndex);
+        }
+    });
     // ---- FIN LÓGICA TESTIMONIOS ----
 
     // Cierre de TODOS los modales con tecla Escape
