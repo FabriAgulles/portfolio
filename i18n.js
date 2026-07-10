@@ -41,7 +41,7 @@
 
         // Servicios
         'services.title': 'Services for Your Business',
-        'services.subtitle': 'AI agents and automations in production, with measurable results.',
+        'services.subtitle': 'AI and automation solutions that deliver measurable results',
         'services.c1.title': 'AI Agents on WhatsApp',
         'services.c1.desc': 'Agents that serve customers 24/7 on WhatsApp: inquiries, appointments and human escalation, integrated with your CRM.',
         'services.c2.title': 'Process Automation with n8n',
