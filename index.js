@@ -73,12 +73,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const mobileMenu = document.getElementById('mobile-menu');
     if (menuButton && mobileMenu) {
         menuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
+            const isOpen = !mobileMenu.classList.toggle('hidden');
+            menuButton.setAttribute('aria-expanded', String(isOpen));
         });
         // Cerrar menú móvil al hacer clic en un enlace
         mobileMenu.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
                 mobileMenu.classList.add('hidden');
+                menuButton.setAttribute('aria-expanded', 'false');
             });
         });
     }
@@ -270,7 +272,8 @@ document.addEventListener('DOMContentLoaded', () => {
             testimonialIndicatorsContainer.innerHTML = ''; // Limpiar existentes
             for (let i = 0; i < testimonialCards.length; i++) {
                 const button = document.createElement('button');
-                button.classList.add('w-2.5', 'h-2.5', 'rounded-full', 'transition-colors', 'duration-300');
+                // p-2 + box-content + bg-clip-content: el punto se ve de 10px pero el área táctil es de ~26px
+                button.classList.add('w-2.5', 'h-2.5', 'p-2', 'box-content', 'bg-clip-content', 'rounded-full', 'transition-colors', 'duration-300');
                 button.classList.add(i === 0 ? 'bg-primary' : 'bg-gray-300', 'hover:bg-primary/70');
                 button.setAttribute('aria-label', `Ir al testimonio ${i + 1}`);
                 button.addEventListener('click', () => scrollToTestimonial(i));
