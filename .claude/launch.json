@@ -14,6 +14,13 @@
       "runtimeArgs": ["run", "dev", "--", "--port", "5299", "--strictPort"],
       "port": 5299,
       "autoPort": false
+    },
+    {
+      "name": "portfolio-dev-alt2",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--", "--port", "5399", "--strictPort"],
+      "port": 5399,
+      "autoPort": false
     }
   ]
 }
