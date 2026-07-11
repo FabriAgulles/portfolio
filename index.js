@@ -5,58 +5,80 @@ document.addEventListener('DOMContentLoaded', () => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     if (heroParagraph && !prefersReducedMotion) {
-        const fullText = heroParagraph.textContent.trim();
-        // El texto completo queda accesible para lectores de pantalla desde el inicio
-        heroParagraph.setAttribute('aria-label', fullText);
-
-        // Placeholder invisible con el texto completo: reserva la altura final
-        // del párrafo para que el tipeo no produzca saltos de layout (CLS)
-        const placeholder = document.createElement('span');
-        placeholder.className = 'invisible';
-        placeholder.setAttribute('aria-hidden', 'true');
-        placeholder.textContent = fullText;
-
-        const typedLayer = document.createElement('span');
-        typedLayer.className = 'absolute inset-0';
-        typedLayer.setAttribute('aria-hidden', 'true');
-
-        const typedText = document.createElement('span');
-        const cursor = document.createElement('span');
-        cursor.className = 'typing-cursor';
-        typedLayer.appendChild(typedText);
-        typedLayer.appendChild(cursor);
-
-        heroParagraph.classList.add('relative');
-        heroParagraph.textContent = '';
-        heroParagraph.appendChild(placeholder);
-        heroParagraph.appendChild(typedLayer);
-
-        let charIndex = 0;
         let typingStarted = false;
+        let typingDone = false;
+        // Identificador de la corrida activa: al cambiar de idioma se incrementa
+        // y los timeouts de la corrida anterior se auto-cancelan.
+        let activeRun = 0;
 
-        function typeNextChar() {
-            // Si el usuario cambió de idioma, i18n reemplazó el contenido del
-            // párrafo y estos nodos quedaron desconectados: cortar el tipeo.
-            if (!typedLayer.isConnected) return;
-            charIndex++;
-            typedText.textContent = fullText.slice(0, charIndex);
-            if (charIndex < fullText.length) {
-                // Cadencia humana: velocidad variable y pausas tras puntuación
-                const lastChar = fullText[charIndex - 1];
-                let delay = 28 + Math.random() * 40;
-                if (lastChar === '.' || lastChar === ',') delay += 250;
-                setTimeout(typeNextChar, delay);
-            } else {
-                // Al terminar, el cursor parpadea un momento y desaparece
-                setTimeout(() => cursor.remove(), 3000);
+        function runTypewriter(initialDelay) {
+            const runId = ++activeRun;
+            typingDone = false;
+            const fullText = heroParagraph.textContent.trim();
+            // El texto completo queda accesible para lectores de pantalla desde el inicio
+            heroParagraph.setAttribute('aria-label', fullText);
+
+            // Placeholder invisible con el texto completo: reserva la altura final
+            // del párrafo para que el tipeo no produzca saltos de layout (CLS)
+            const placeholder = document.createElement('span');
+            placeholder.className = 'invisible';
+            placeholder.setAttribute('aria-hidden', 'true');
+            placeholder.textContent = fullText;
+
+            const typedLayer = document.createElement('span');
+            typedLayer.className = 'absolute inset-0';
+            typedLayer.setAttribute('aria-hidden', 'true');
+
+            const typedText = document.createElement('span');
+            const cursor = document.createElement('span');
+            cursor.className = 'typing-cursor';
+            typedLayer.appendChild(typedText);
+            typedLayer.appendChild(cursor);
+
+            heroParagraph.classList.add('relative');
+            heroParagraph.textContent = '';
+            heroParagraph.appendChild(placeholder);
+            heroParagraph.appendChild(typedLayer);
+
+            let charIndex = 0;
+
+            function typeNextChar() {
+                // Corrida cancelada (cambio de idioma) o nodos desconectados: cortar.
+                if (runId !== activeRun || !typedLayer.isConnected) return;
+                charIndex++;
+                typedText.textContent = fullText.slice(0, charIndex);
+                if (charIndex < fullText.length) {
+                    // Cadencia humana: velocidad variable y pausas tras puntuación
+                    const lastChar = fullText[charIndex - 1];
+                    let delay = 28 + Math.random() * 40;
+                    if (lastChar === '.' || lastChar === ',') delay += 250;
+                    setTimeout(typeNextChar, delay);
+                } else {
+                    // Al terminar, el cursor parpadea un momento y desaparece
+                    typingDone = true;
+                    setTimeout(() => cursor.remove(), 3000);
+                }
             }
+
+            setTimeout(typeNextChar, initialDelay);
         }
 
         function startTyping() {
             if (typingStarted) return;
             typingStarted = true;
-            setTimeout(typeNextChar, 500);
+            runTypewriter(500);
         }
+
+        // Al cambiar de idioma, i18n ya dejó el texto completo traducido en el
+        // párrafo. Si el tipeo estaba en curso, reiniciarlo con el texto nuevo;
+        // si no había empezado o ya terminó, dejar el texto completo visible.
+        document.addEventListener('langchange', () => {
+            if (typingStarted && !typingDone) {
+                runTypewriter(150);
+            } else {
+                activeRun++;
+            }
+        });
 
         if (heroVideo) {
             heroVideo.addEventListener('playing', startTyping, { once: true });

@@ -248,6 +248,13 @@
     // Este listener corre antes que el de index.js (i18n.js se carga primero),
     // así el typewriter lee el texto ya traducido si el idioma guardado es EN.
     document.addEventListener('DOMContentLoaded', () => {
+        // Capturar el español original ANTES de que otros scripts muten el DOM
+        // (el typewriter de index.js reemplaza el contenido de #hero-description;
+        // sin esto, esCache guardaría el markup de la animación a medio tipear)
+        document.querySelectorAll('[data-i18n]').forEach((el) => {
+            const key = el.getAttribute('data-i18n');
+            if (!(key in esCache)) esCache[key] = el.innerHTML;
+        });
         document.querySelectorAll('.lang-toggle').forEach((btn) => {
             btn.addEventListener('click', () => window.i18n.toggle());
         });
