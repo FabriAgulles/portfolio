@@ -48,6 +48,8 @@
         'services.c2.desc': 'I automate end-to-end processes with n8n: fewer manual tasks, fewer errors and faster responses.',
         'services.c3.title': 'Technical AI Consulting',
         'services.c3.desc': 'I assess feasibility, design the architecture and stay with you until AI works in your operation.',
+        'services.c4.title': 'Technical Project Management',
+        'services.c4.desc': 'I lead technology projects end-to-end: planning, team and stakeholder management, and on-time, on-budget delivery.',
         'services.cta': "Let's talk about your project",
 
         // Proyectos
@@ -84,7 +86,7 @@
         'skills.dev.stripe': '<i class="fas fa-check-circle text-green-500 mr-2"></i> Stripe (payments & subscriptions)',
         'skills.pm.title': 'Project Management',
         'skills.pm.docs': '<i class="fas fa-check-circle text-green-500 mr-2"></i> Technical and functional documentation',
-        'skills.soft.title': '<i class="fas fa-users mr-2"></i>Soft Skills',
+        'skills.soft.title': 'Soft Skills',
         'skills.soft.s1': '<i class="fas fa-users text-primary mr-2"></i>Team Leadership',
         'skills.soft.s2': '<i class="fas fa-comments text-primary mr-2"></i>Effective Communication',
         'skills.soft.s3': '<i class="fas fa-hands-helping text-primary mr-2"></i>Stakeholder Management',
